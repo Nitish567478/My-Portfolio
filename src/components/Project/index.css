@@ -20,6 +20,19 @@
   z-index: 0;
 }
 
+.skill-image {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+  margin-bottom: 1.5rem;
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.skill-card:hover .skill-image {
+  transform: scale(1.2) rotate(8deg);
+  filter: drop-shadow(0 15px 30px rgba(255, 87, 51, 0.5));
+}
+
 .projects h2 {
   font-size: clamp(2.5rem, 5vw, 3.8rem);
   font-weight: 900;

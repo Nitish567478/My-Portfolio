@@ -38,69 +38,69 @@ const Skills = () => {
       <h2 className="skills-heading">My Skills</h2>
 
       {/* Programming */}
-<div className="skills-category programming">
-  <h3 className="skills-category-heading programming">Programming</h3>
-  <div className="skills-container">
-    {skillsData.programming.map((skill, index) => (
-      <div className="skill-card" key={index}>
-        <img src={skill.img} alt={skill.name} className="skill-image" />
-        <h3 className="skill-name">{skill.name}</h3>
+      <div className="skills-category programming">
+        <h3 className="skills-category-heading programming">Programming</h3>
+        <div className="skills-container">
+          {skillsData.programming.map((skill, index) => (
+            <div className="skill-card" key={index}>
+              <img src={skill.img} alt={skill.name} className="skill-image" />
+              <h3 className="skill-name">{skill.name}</h3>
+            </div>
+          ))}
+        </div>
       </div>
-    ))}
-  </div>
-</div>
 
-{/* Frontend */}
-<div className="skills-category frontend">
-  <h3 className="skills-category-heading frontend">Frontend</h3>
-  <div className="skills-container">
-    {skillsData.frontend.map((skill, index) => (
-      <div className="skill-card" key={index}>
-        <img src={skill.img} alt={skill.name} className="skill-image" />
-        <h3 className="skill-name">{skill.name}</h3>
+      {/* Frontend */}
+      <div className="skills-category frontend">
+        <h3 className="skills-category-heading frontend">Frontend</h3>
+        <div className="skills-container">
+          {skillsData.frontend.map((skill, index) => (
+            <div className="skill-card" key={index}>
+              <img src={skill.img} alt={skill.name} className="skill-image" />
+              <h3 className="skill-name">{skill.name}</h3>
+            </div>
+          ))}
+        </div>
       </div>
-    ))}
-  </div>
-</div>
 
-{/* Backend */}
-<div className="skills-category backend">
-  <h3 className="skills-category-heading backend">Backend</h3>
-  <div className="skills-container">
-    {skillsData.backend.map((skill, index) => (
-      <div className="skill-card" key={index}>
-        <img src={skill.img} alt={skill.name} className="skill-image" />
-        <h3 className="skill-name">{skill.name}</h3>
+      {/* Backend */}
+      <div className="skills-category backend">
+        <h3 className="skills-category-heading backend">Backend</h3>
+        <div className="skills-container">
+          {skillsData.backend.map((skill, index) => (
+            <div className="skill-card" key={index}>
+              <img src={skill.img} alt={skill.name} className="skill-image" />
+              <h3 className="skill-name">{skill.name}</h3>
+            </div>
+          ))}
+        </div>
       </div>
-    ))}
-  </div>
-</div>
 
-{/* Database */}
-<div className="skills-category database">
-  <h3 className="skills-category-heading database">Database</h3>
-  <div className="skills-container">
-    {skillsData.database.map((skill, index) => (
-      <div className="skill-card" key={index}>
-        <img src={skill.img} alt={skill.name} className="skill-image" />
-        <h3 className="skill-name">{skill.name}</h3>
+      {/* Database */}
+      <div className="skills-category database">
+        <h3 className="skills-category-heading database">Database</h3>
+        <div className="skills-container">
+          {skillsData.database.map((skill, index) => (
+            <div className="skill-card" key={index}>
+              <img src={skill.img} alt={skill.name} className="skill-image" />
+              <h3 className="skill-name">{skill.name}</h3>
+            </div>
+          ))}
+        </div>
       </div>
-    ))}
-  </div>
-</div>
 
-{/* Tools */}
-<div className="skills-category tools">
-  <h3 className="skills-category-heading tools">Tools</h3>
-  <div className="skills-container">
-    {skillsData.tools.map((skill, index) => (
-      <div className="skill-card" key={index}>
-        <img src={skill.img} alt={skill.name} className="skill-image" />
-        <h3 className="skill-name">{skill.name}</h3>
+      {/* Tools */}
+      <div className="skills-category tools">
+        <h3 className="skills-category-heading tools">Tools</h3>
+        <div className="skills-container">
+          {skillsData.tools.map((skill, index) => (
+            <div className="skill-card" key={index}>
+              <img src={skill.img} alt={skill.name} className="skill-image" />
+              <h3 className="skill-name">{skill.name}</h3>
+            </div>
+          ))}
+        </div>
       </div>
-    ))}
-  </div>
-</div>
 
     </section>
   );
