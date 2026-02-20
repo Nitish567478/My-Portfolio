@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./index.css";
-import myPhoto from "../../assets/myphoto.jpeg";
+import myPhoto from "../../assets/myphoto.png";
 
 const Home = () => {
   const roles = ["Frontend Developer", "Backend Developer", "Full Stack Developer"];

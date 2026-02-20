@@ -31,7 +31,7 @@ const skillsData = {
     { name: "GitHub", img: images.github },
   ],
 };
-
+ 
 const Skills = () => {
   return (
     <section id="skills" className="skills-section">

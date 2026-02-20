@@ -12,6 +12,16 @@ import dbms from "../../assets/dbms.png";
 import mongodb from "../../assets/MongoDB.png"; 
 import express from "../../assets/express.webp";
 
+{/* project images */}
+import wiki from '../../assets/wiki.png';
+import task from '../../assets/task.png';
+import school from '../../assets/school.png';
+import counter from '../../assets/counter.png';
+import feedback from '../../assets/feedback.png';
+import canvas from '../../assets/canvas.png';
+import chat from '../../assets/chat.png';
+
+import barber from '../../assets/barber.avif'
 const images = {
   html,
   css,
@@ -26,6 +36,15 @@ const images = {
   dbms,
   mongodb, 
   express,
+
+  wiki,
+  task,
+  school,
+  counter,
+  feedback,
+  canvas,
+  chat,
+  barber
 };
 
 export default images;

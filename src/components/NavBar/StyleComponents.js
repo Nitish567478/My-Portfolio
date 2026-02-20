@@ -163,7 +163,7 @@ export const NavLink = styled.a`
   font-weight: 700;
   padding: 12px 24px;
   border-radius: 25px;
-  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: color 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   position: relative;
   letter-spacing: 0.5px;
   display: block;
@@ -184,11 +184,6 @@ export const NavLink = styled.a`
 
   &:hover {
     color: #ffffff !important;
-    background: rgba(255, 87, 51, 0.25) !important;
-    border: 2px solid rgba(255, 87, 51, 0.6) !important;
-    transform: translateY(-4px) scale(1.05);
-    box-shadow: 0 20px 40px rgba(255, 87, 51, 0.4);
-    text-shadow: 0 0 15px rgba(255, 87, 51, 0.7);
   }
 
   &:hover::before {
@@ -204,6 +199,7 @@ export const NavLink = styled.a`
     border-radius: 20px;
   }
 `;
+
 
 export const ToggleButton = styled.div`
   display: none;

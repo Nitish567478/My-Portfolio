@@ -1,121 +1,130 @@
+// Projects.jsx - COMPLETE UPDATED CODE WITH ALL BUTTONS ENHANCED
 import React from "react";
 import images from "../images/images.jsx";
 import "./index.css";
+import FeaturedProject from "../FeaturedProject";
 
 const Projects = () => {
   const projectsData = [
     {
-      images: { name: "C++", img: images.cpp },
-      title: "Balloon Pop Game",
-      desc: "Interactive game built with React hooks and animations",
-      live: "https://your-live-link.com",
-      github: "https://github.com/your-username/balloon-pop-game",
+      images: { name: "Wikipedia", img: images.wiki },
+      title: "AI MCQ Quiz Generator",
+      desc: "Interactive Wikipedia URL input converts to MCQ questions for practice.",
+      live: "https://ai-mcq-generator-seven.vercel.app/",
+      github: "https://github.com/nitishyadav47/ai-mcq-generator",
     },
     {
-      images: { name: "C++", img: images.cpp },
-      title: "Simon Says",
-      desc: "Memory game with sound effects and smooth animations",
-      live: "https://your-live-link.com",
-      github: "https://github.com/your-username/simon-says",
+      images: { name: "Task Management", img: images.task },
+      title: "Task Management System",
+      desc: "Task manager with add, edit, delete, local storage, and history views.",
+      live: "https://task-manager-psi-sandy.vercel.app/login",
+      github: "https://github.com/nitishyadav47/task-manager",
     },
     {
-      images: { name: "C++", img: images.cpp },
-      title: "School Admission Form",
-      desc: "Complete admission system with form validation",
-      live: "https://your-live-link.com",
-      github: "https://github.com/your-username/admission-form",
+      images: { name: "School", img: images.school },
+      title: "School Management",
+      desc: "School website with admission forms, queries, and full information.",
+      live: "https://my-school-sooty.vercel.app/",
+      github: "https://github.com/nitishyadav47/school-management",
     },
     {
-      images: { name: "C++", img: images.cpp },
-      title: "Portfolio Website",
-      desc: "Personal portfolio with smooth scrolling and responsive UI",
-      live: "https://your-live-link.com",
-      github: "https://github.com/your-username/portfolio",
+      images: { name: "Counter", img: images.counter },
+      title: "Counter",
+      desc: "Simple counter to track repetitions like chants or counts.",
+      live: "https://counter-gray-five.vercel.app/",
+      github: "https://github.com/nitishyadav47/counter",
     },
     {
-      images: { name: "C++", img: images.cpp },
-      title: "Todo App",
-      desc: "Task manager with add, edit, delete and local storage support",
-      live: "https://your-live-link.com",
-      github: "https://github.com/your-username/todo-app",
+      images: { name: "Feedback", img: images.feedback },
+      title: "Feedback Management System",
+      desc: "Store and view work feedback with location tracking.",
+      live: "https://lighthearted-kelpie-beca12.netlify.app/",
+      github: "https://github.com/nitishyadav47/feedback-system",
     },
     {
-      images: { name: "C++", img: images.cpp },
-      title: "Weather App",
-      desc: "Live weather app using API with search and dynamic UI updates",
-      live: "https://your-live-link.com",
-      github: "https://github.com/your-username/weather-app",
+      images: { name: "Canvas", img: images.canvas },
+      title: "Collaborative Canvas",
+      desc: "Real-time collaborative drawing with multiple users and DSA practice.",
+      live: "https://collaborative-canvas-1-rwuf.onrender.com/",
+      github: "https://github.com/nitishyadav47/collaborative-canvas",
     },
-    {
-      images: { name: "C++", img: images.cpp },
-      title: "Calculator",
-      desc: "Simple calculator with clean UI and fast calculations",
-      live: "https://your-live-link.com",
-      github: "https://github.com/your-username/calculator",
-    },
-    {
-      images: { name: "C++", img: images.cpp },
-      title: "Quiz App",
-      desc: "Quiz app with score tracking and next question navigation",
-      live: "https://your-live-link.com",
-      github: "https://github.com/your-username/quiz-app",
-    },
-    {
-      images: { name: "C++", img: images.cpp },
-      title: "E-commerce UI",
-      desc: "Shopping UI with product cards, cart layout and filters",
-      live: "https://your-live-link.com",
-      github: "https://github.com/your-username/ecommerce-ui",
-    },
-    {
-      images: { name: "C++", img: images.cpp },
-      title: "Login Signup Form",
-      desc: "Authentication UI with validations and modern design",
-      live: "https://your-live-link.com",
-      github: "https://github.com/your-username/login-signup",
-    },
+    // {
+    //   images: { name: "Calculator", img: images.cpp },
+    //   title: "Calculator",
+    //   desc: "Simple calculator with clean UI and fast calculations.",
+    //   live: "https://chat-gpt-pizl.vercel.app/",
+    //   github: "https://github.com/nitishyadav47/calculator",
+    // },
+    // {
+    //   images: { name: "Quiz", img: images.cpp },
+    //   title: "Quiz App",
+    //   desc: "Quiz app with score tracking and next question navigation.",
+    //   live: "https://your-live-link.com",
+    //   github: "https://github.com/nitishyadav47/quiz-app",
+    // },
   ];
 
   return (
-    <section id="projects" className="projects">
-      <h2>Projects</h2>
+    <>
+      <section id="projects" className="projects">
+        <h2>Projects</h2>
 
-      <div className="project-grid">
-        {projectsData.map((project, index) => (
-          <div className="project-card" key={index}>
-            {/* ✅ FIXED HERE */}
-            <img
-              src={project.images.img}
-              alt={project.images.name}
-              className="skill-image"
-            />
+        <div className="project-grid">
+          {projectsData.map((project, index) => (
+            <div className="project-card" key={index}>
+              <img
+                src={project.images.img}
+                alt={project.images.name}
+                className="project-image"
+                loading="lazy"
+              />
 
-            <h3>{project.title}</h3>
-            <p>{project.desc}</p>
+              <h3>{project.title}</h3>
+              <p>{project.desc}</p>
 
-            <div className="project-links">
-              <a
-                href={project.live}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="project-link"
-              >
-                Live Demo <span className="arrow">↗</span>
-              </a>
+              <div className="project-links">
+                <a
+                  href={project.live}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="project-btn primary-btn"
+                  aria-label={`Live demo of ${project.title}`}
+                >
+                  <span className="btn-text">Live Demo</span>
+                  <span className="arrow">↗</span>
+                </a>
 
-              <a
-                href={project.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="project-link"
-              >
-                GitHub <span className="arrow">↗</span>
-              </a>
+                <a
+                  href={project.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="project-btn secondary-btn"
+                  aria-label={`GitHub repo for ${project.title}`}
+                >
+                  <span className="btn-text">GitHub</span>
+                  <span className="arrow">↗</span>
+                </a>
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
-    </section>
+          ))}
+        </div>
+
+        {/* See All Projects Button */}
+        <div className="see-all-container">
+          <a
+            href="http://myallproj.ccbp.tech/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="project-btn gradient-btn see-all-btn"
+            aria-label="View all projects portfolio"
+          >
+            <span className="btn-text">See All Projects</span>
+            <span className="arrow">↗</span>
+          </a>
+        </div>
+      </section>
+      <FeaturedProject />
+    </>
   );
 };
 
