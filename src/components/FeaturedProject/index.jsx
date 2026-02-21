@@ -1,63 +1,70 @@
 import React from "react";
-import images from "../images/images.jsx"; // Update path to your actual image
-import "./index.css";
+import images from "../images/images.jsx";
+import {
+  FeaturedSection,
+  FeaturedTitle,
+  FeaturedProjectWrapper,
+  FeaturedImage,
+  FeaturedContent,
+  FeaturedProjectTitle,
+  FeaturedDescription,
+  FeaturedLinks,
+  ProjectLink,
+  ProjectTech,
+  TechTag
+} from "./StyleComponents";
 
 const FeaturedProject = () => {
   return (
-    <section className="featured-section">
-      <h2 className="featured-title">
-        Featured Project
-      </h2>
+    <FeaturedSection>
+      <FeaturedTitle>Featured Project</FeaturedTitle>
 
-      <div className="featured-project">
-        <div className="featured-image">
-          <img 
-            src={images.barber} 
-            alt="Barber Shop Website - Modern booking system with responsive design"
-            className="project-image"
+      <FeaturedProjectWrapper>
+        <FeaturedImage>
+          <img
+            src={images.barber}
+            alt="Barber Shop Website"
           />
-        </div>
+        </FeaturedImage>
 
-        <div className="featured-content">
-          <h3 className="featured-project-title">Barber Shop Website</h3>
-          
-          <p className="featured-description">
-            Modern barber shop website featuring real-time booking system, 
-            dynamic service listings, team profiles, and fully responsive 
+        <FeaturedContent>
+          <FeaturedProjectTitle>
+            Barber Shop Website
+          </FeaturedProjectTitle>
+
+          <FeaturedDescription>
+            Modern barber shop website featuring real-time booking system,
+            dynamic service listings, team profiles, and fully responsive
             UI/UX design across all devices.
-          </p>
+          </FeaturedDescription>
 
-          <div className="featured-links project-links">
-            <a
-              href="https://your-barber-site.netlify.app" 
+          <FeaturedLinks>
+            <ProjectLink
+              href="https://your-barber-site.netlify.app"
               target="_blank"
               rel="noopener noreferrer"
-              className="project-link"
             >
-              Live Demo 
-              <span className="arrow">↗</span>
-            </a>
+              Live Demo ↗
+            </ProjectLink>
 
-            <a
-              href="https://github.com/nitishyadav47/barber-shop-website" // Update repo name
+            <ProjectLink
+              href="https://github.com/nitishyadav47/barber-shop-website"
               target="_blank"
               rel="noopener noreferrer"
-              className="project-link"
             >
-              View Code 
-              <span className="arrow">↗</span>
-            </a>
-          </div>
+              View Code ↗
+            </ProjectLink>
+          </FeaturedLinks>
 
-          <div className="project-tech">
-            <span className="tech-tag">React</span>
-            <span className="tech-tag">Tailwind CSS</span>
-            <span className="tech-tag">Node.js</span>
-            <span className="tech-tag">MongoDB</span>
-          </div>
-        </div>
-      </div>
-    </section>
+          <ProjectTech>
+            <TechTag>React</TechTag>
+            <TechTag>Tailwind CSS</TechTag>
+            <TechTag>Node.js</TechTag>
+            <TechTag>MongoDB</TechTag>
+          </ProjectTech>
+        </FeaturedContent>
+      </FeaturedProjectWrapper>
+    </FeaturedSection>
   );
 };
 

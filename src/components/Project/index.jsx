@@ -1,8 +1,18 @@
-// Projects.jsx - COMPLETE UPDATED CODE WITH ALL BUTTONS ENHANCED
 import React from "react";
 import images from "../images/images.jsx";
-import "./index.css";
 import FeaturedProject from "../FeaturedProject";
+import {
+  ProjectsSection,
+  ProjectsHeading,
+  ProjectGrid,
+  ProjectCard,
+  ProjectImage,
+  ProjectTitle,
+  ProjectDesc,
+  ProjectLinks,
+  ProjectButton,
+  SeeAllContainer
+} from "./StyleComponents";
 
 const Projects = () => {
   const projectsData = [
@@ -11,42 +21,42 @@ const Projects = () => {
       title: "AI MCQ Quiz Generator",
       desc: "Interactive Wikipedia URL input converts to MCQ questions for practice.",
       live: "https://ai-mcq-generator-seven.vercel.app/",
-      github: "https://github.com/nitishyadav47/ai-mcq-generator",
+      github: "https://github.com/Nitish567478/AI-MCQ-Generator-Frontend",
     },
     {
       images: { name: "Task Management", img: images.task },
       title: "Task Management System",
       desc: "Task manager with add, edit, delete, local storage, and history views.",
       live: "https://task-manager-psi-sandy.vercel.app/login",
-      github: "https://github.com/nitishyadav47/task-manager",
+      github: "https://github.com/Nitish567478/Task-Manager-Frontend",
     },
     {
       images: { name: "School", img: images.school },
       title: "School Management",
       desc: "School website with admission forms, queries, and full information.",
       live: "https://my-school-sooty.vercel.app/",
-      github: "https://github.com/nitishyadav47/school-management",
+      github: "https://github.com/Nitish567478/My-School",
     },
     {
       images: { name: "Counter", img: images.counter },
       title: "Counter",
       desc: "Simple counter to track repetitions like chants or counts.",
       live: "https://counter-gray-five.vercel.app/",
-      github: "https://github.com/nitishyadav47/counter",
+      github: "https://github.com/Nitish567478/counter",
     },
     {
       images: { name: "Feedback", img: images.feedback },
       title: "Feedback Management System",
       desc: "Store and view work feedback with location tracking.",
       live: "https://lighthearted-kelpie-beca12.netlify.app/",
-      github: "https://github.com/nitishyadav47/feedback-system",
+      github: "https://github.com/Nitish567478/feedback-website",
     },
     {
       images: { name: "Canvas", img: images.canvas },
       title: "Collaborative Canvas",
       desc: "Real-time collaborative drawing with multiple users and DSA practice.",
       live: "https://collaborative-canvas-1-rwuf.onrender.com/",
-      github: "https://github.com/nitishyadav47/collaborative-canvas",
+      github: "https://github.com/Nitish567478/collaborative-canvas",
     },
     // {
     //   images: { name: "Calculator", img: images.cpp },
@@ -66,63 +76,60 @@ const Projects = () => {
 
   return (
     <>
-      <section id="projects" className="projects">
-        <h2>Projects</h2>
+      <ProjectsSection id="projects">
+        <ProjectsHeading>Projects</ProjectsHeading>
 
-        <div className="project-grid">
+        <ProjectGrid>
           {projectsData.map((project, index) => (
-            <div className="project-card" key={index}>
-              <img
+            <ProjectCard key={index} delay={0.15 + index * 0.1}>
+              <ProjectImage
                 src={project.images.img}
                 alt={project.images.name}
-                className="project-image"
                 loading="lazy"
               />
 
-              <h3>{project.title}</h3>
-              <p>{project.desc}</p>
+              <ProjectTitle>{project.title}</ProjectTitle>
+              <ProjectDesc>{project.desc}</ProjectDesc>
 
-              <div className="project-links">
-                <a
+              <ProjectLinks>
+                <ProjectButton
                   href={project.live}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="project-btn primary-btn"
-                  aria-label={`Live demo of ${project.title}`}
+                  variant="primary"
                 >
-                  <span className="btn-text">Live Demo</span>
-                  <span className="arrow">↗</span>
-                </a>
+                  <span>Live Demo</span>
+                  <span>↗</span>
+                </ProjectButton>
 
-                <a
+                <ProjectButton
                   href={project.github}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="project-btn secondary-btn"
-                  aria-label={`GitHub repo for ${project.title}`}
+                  variant="secondary"
                 >
-                  <span className="btn-text">GitHub</span>
-                  <span className="arrow">↗</span>
-                </a>
-              </div>
-            </div>
+                  <span>GitHub</span>
+                  <span>↗</span>
+                </ProjectButton>
+              </ProjectLinks>
+            </ProjectCard>
           ))}
-        </div>
+        </ProjectGrid>
 
-        {/* See All Projects Button */}
-        <div className="see-all-container">
-          <a
+        <SeeAllContainer>
+          <ProjectButton
             href="http://myallproj.ccbp.tech/"
             target="_blank"
             rel="noopener noreferrer"
-            className="project-btn gradient-btn see-all-btn"
-            aria-label="View all projects portfolio"
+            variant="gradient"
+            large
           >
-            <span className="btn-text">See All Projects</span>
-            <span className="arrow">↗</span>
-          </a>
-        </div>
-      </section>
+            <span>See All Projects</span>
+            <span>↗</span>
+          </ProjectButton>
+        </SeeAllContainer>
+      </ProjectsSection>
+
       <FeaturedProject />
     </>
   );

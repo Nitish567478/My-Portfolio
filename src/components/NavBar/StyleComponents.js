@@ -12,17 +12,17 @@ const staggerIn = keyframes`
 
 export const Nav = styled.nav`
   width: 100%;
-  background: rgba(13, 13, 13, 0.95);
+  background: var(--bg);
+  color: var(--text);
   backdrop-filter: blur(25px);
   padding: 15px 0;
   position: sticky;
   top: 0;
   z-index: 1000;
-  border-bottom: 1px solid rgba(255, 87, 51, 0.3);
+  border-bottom: 1px solid ${({ theme }) => theme.accentSoft};
   transition: all 0.4s ease;
   animation: ${slideDown} 0.8s ease-out;
-  
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  box-shadow: ${({ theme }) => theme.shadow};
 `;
 
 export const NavContainer = styled.div`
@@ -240,3 +240,67 @@ export const ToggleLine = styled.span`
       props.$isOpen ? "rotate(-45deg) translate(7px, -7px)" : "none"};
   }
 `;
+
+export const ThemeToggle = styled.button`
+  width: 70px;
+  height: 34px;
+  background: ${({ darkMode }) =>
+    darkMode ? "#a04848" : "#0d0d0d"};
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease;
+  padding: 0;
+  outline: none;
+
+  display: flex;
+  align-items: center;
+
+  &::before {
+    content: "${({ darkMode }) => (darkMode ? "" : "")}";
+    position: absolute;
+    left: 10px;
+    font-size: 10px;
+    font-weight: 700;
+    color: white;
+    letter-spacing: 1px;
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 4px;
+    left: ${({ darkMode }) => (darkMode ? "38px" : "4px")};
+    width: 26px;
+    height: 26px;
+    background: white;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+`;
+
+
+export const lightTheme = {
+  background: "#ffffff",
+  text: "#111111",
+  navBg: "rgba(255,255,255,0.95)",
+  accent: "#ff5733",
+  accentSoft: "rgba(255,87,51,0.3)",
+  gradient: "linear-gradient(135deg, #ff5733, #ff8e53, #ffa726)",
+  shadow: "0 4px 20px rgba(0,0,0,0.1)"
+};
+
+export const darkTheme = {
+  background: "#0d0d0d",
+  text: "#ffffff",
+  navBg: "rgba(13,13,13,0.95)",
+  accent: "#ff5733",
+  accentSoft: "rgba(255,87,51,0.3)",
+  gradient: "linear-gradient(135deg, #ff5733, #ff8e53, #ffa726)",
+  shadow: "0 4px 20px rgba(0,0,0,0.3)"
+};

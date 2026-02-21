@@ -1,42 +1,48 @@
 import React from "react";
-import './index.css'
+import {
+  FooterSection,
+  FooterContainer,
+  FooterName,
+  FooterText,
+  FooterLinks,
+  FooterLink
+} from "./StyleComponents";
+
 const Footer = () => {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="footer">
-      <div className="footer-container">
-        <h3 className="footer-name">Nitish Kumar Yadav</h3>
+    <FooterSection>
+      <FooterContainer>
+        <FooterName>Nitish Kumar Yadav</FooterName>
 
-        <p className="footer-text">
+        <FooterText>
           &copy; {year} Nitish Kumar Yadav. Made with ❤️.
-        </p>
+        </FooterText>
 
-        <div className="footer-links">
-          <a
+        <FooterLinks>
+          <FooterLink
             href="https://www.linkedin.com/in/nitishkumaryadav111"
             target="_blank"
             rel="noopener noreferrer"
-            className="footer-link"
           >
-            LinkedIn <span className="arrow">↗</span>
-          </a>
+            LinkedIn <span>↗</span>
+          </FooterLink>
 
-          <a
+          <FooterLink
             href="https://github.com/Nitish567478"
             target="_blank"
             rel="noopener noreferrer"
-            className="footer-link"
           >
-            GitHub <span className="arrow">↗</span>
-          </a>
+            GitHub <span>↗</span>
+          </FooterLink>
 
-          <a href="#home" className="footer-link">
-            Back to Top <span className="arrow">↑</span>
-          </a>
-        </div>
-      </div>
-    </footer>
+          <FooterLink href="#home">
+            Back to Top <span>↑</span>
+          </FooterLink>
+        </FooterLinks>
+      </FooterContainer>
+    </FooterSection>
   );
 };
 

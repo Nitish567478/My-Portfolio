@@ -8,9 +8,10 @@ import {
   NavLink,
   ToggleButton,
   ToggleLine,
+  ThemeToggle
 } from "./StyleComponents";
 
-const Navbar = () => {
+const Navbar = ({ darkMode, setDarkMode }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -26,12 +27,14 @@ const Navbar = () => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
     };
+
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const toggleMenu = () => setIsOpen(!isOpen);
   const closeMenu = () => setIsOpen(false);
+  const toggleTheme = () => setDarkMode(prev => !prev);
 
   return (
     <Nav $scrolled={scrolled}>
@@ -46,9 +49,9 @@ const Navbar = () => {
 
         <NavMenu $isOpen={isOpen}>
           {menuItems.map((item, index) => (
-            <NavItem 
-              key={item.href} 
-              $isOpen={isOpen} 
+            <NavItem
+              key={item.href}
+              $isOpen={isOpen}
               $index={index}
               onClick={closeMenu}
             >
@@ -56,9 +59,13 @@ const Navbar = () => {
             </NavItem>
           ))}
         </NavMenu>
+                <ThemeToggle 
+          onClick={toggleTheme}
+          darkMode={darkMode}
+        />
       </NavContainer>
     </Nav>
   );
 };
- 
+
 export default Navbar;

@@ -1,7 +1,16 @@
 import React, { useState } from "react";
 import { FiSend } from "react-icons/fi";
 import emailjs from "@emailjs/browser";
-import "./index.css";
+import {
+  ContactSection,
+  ContactHeading,
+  ContactText,
+  ContactEmail,
+  ContactForm,
+  ContactInput,
+  ContactTextarea,
+  ContactButton
+} from "./StyleComponents";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -38,8 +47,7 @@ const Contact = () => {
         adminTemplateParams,
         "_rYUni-xtUrX7x4wk"
       );
-      
-      // Send auto-reply email to the user
+
       await emailjs.send(
         "service_xzuz89a",
         "template_678eors",
@@ -56,53 +64,50 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="contact">
-      <h2 className="contact-heading">Contact</h2>
+    <ContactSection id="contact">
+      <ContactHeading>Contact</ContactHeading>
 
-      <p className="contact-text">Giridih, Jharkhand, India</p>
+      <ContactText>Giridih, Jharkhand, India</ContactText>
 
-      {/* <p className="contact-text">
+      {/* <ContactText>
         Email:{" "}
-        <a className="contact-email" href="mailto:kumarnitishgrd147@gmail.com">
+        <ContactEmail href="mailto:kumarnitishgrd147@gmail.com">
           kumarnitishgrd147@gmail.com
-        </a>
-      </p> */}
-   
-      <form className="contact-form" onSubmit={handleSubmit}>
-        <input
+        </ContactEmail>
+      </ContactText> */}
+
+      <ContactForm onSubmit={handleSubmit}>
+        <ContactInput
           type="text"
           name="from_name"
           placeholder="Your Name"
           value={formData.from_name}
           onChange={handleChange}
           required
-          className="contact-input"
         />
 
-        <input
+        <ContactInput
           type="email"
           name="from_email"
           placeholder="Your Email"
           value={formData.from_email}
           onChange={handleChange}
           required
-          className="contact-input"
         />
 
-        <textarea
+        <ContactTextarea
           name="message"
           placeholder="Your Message"
           value={formData.message}
           onChange={handleChange}
           required
-          className="contact-textarea"
-        ></textarea>
+        />
 
-        <button type="submit" className="contact-btn">
-          Send Message <FiSend className="send-icon" />
-        </button>
-      </form>
-    </section>
+        <ContactButton type="submit">
+          Send Message <FiSend />
+        </ContactButton>
+      </ContactForm>
+    </ContactSection>
   );
 };
 
