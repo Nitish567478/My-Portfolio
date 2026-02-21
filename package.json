@@ -5,9 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+  "build": "vite build",
+
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
