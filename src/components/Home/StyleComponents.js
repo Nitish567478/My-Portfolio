@@ -1,78 +1,74 @@
 import styled, { keyframes } from "styled-components";
 
-const slideInLeft = keyframes`
-  to { opacity: 1; transform: translateX(0); }
+// --- Keep your original animations ---
+const slideInLeft = keyframes` to { opacity: 1; transform: translateX(0); } `;
+const slideInRight = keyframes` to { opacity: 1; transform: translateX(0); } `;
+const fadeUp = keyframes` to { opacity: 1; transform: translateY(0); } `;
+const blink = keyframes` 0%,50% { opacity: 1; } 51%,100% { opacity: 0; } `;
+const pulse = keyframes` 0%,100% { transform: scale(1); } 50% { transform: scale(1.1); } `;
+const expand = keyframes` to { transform: scaleX(1); } `;
+const float = keyframes` 0%,100% { transform: translateY(0px) rotate(0deg); } 50% { transform: translateY(-12px) rotate(2deg); } `;
+const rotateRing = keyframes` 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } `;
+const underlineExpand = keyframes` 0%,100% { width: 0; } 50% { width: 100%; } `;
+const glowPulse = keyframes` 0%,100% { opacity:0; transform:scale(1); box-shadow:0 0 4px rgba(255,87,51,0.6); } 50% { opacity:1; transform:scale(1.2); box-shadow:0 0 12px rgba(255,87,51,0.8); } `;
+
+
+const float3D = keyframes`
+  0%, 100% { transform: translateY(0px) rotateX(0deg) rotateY(0deg); }
+  50% { transform: translateY(-20px) rotateX(10deg) rotateY(5deg); }
 `;
 
-const slideInRight = keyframes`
-  to { opacity: 1; transform: translateX(0); }
+const ringPulse = keyframes`
+  0%, 100% { transform: translateZ(-40px) scale(1); opacity: 0.6; }
+  50% { transform: translateZ(-60px) scale(1.15); opacity: 0.3; }
 `;
 
-const fadeUp = keyframes`
-  to { opacity: 1; transform: translateY(0); }
+const glowSpin = keyframes`
+  from { filter: hue-rotate(0deg) brightness(1); }
+  to { filter: hue-rotate(360deg) brightness(1.2); }
 `;
 
-const blink = keyframes`
-  0%,50% { opacity: 1; }
-  51%,100% { opacity: 0; }
+// --- New 3D BG Components ---
+export const KeyboardBG = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 150vw;
+  height: 120vh;
+  display: grid;
+  grid-template-columns: repeat(20, 1fr);
+  gap: 12px;
+  transform: translate(-50%, -30%) rotateX(65deg) rotateZ(-15deg);
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.5;
 `;
 
-const pulse = keyframes`
-  0%,100% { transform: scale(1); }
-  50% { transform: scale(1.1); }
-`;
-
-const expand = keyframes`
-  to { transform: scaleX(1); }
-`;
-
-const float = keyframes`
-  0%,100% { transform: translateY(0px) rotate(0deg); }
-  50% { transform: translateY(-12px) rotate(2deg); }
-`;
-
-const spin = keyframes`
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-`;
-
-const pulseRing = keyframes`
-  0% { transform: scale(0.8); opacity: 1; }
-  100% { transform: scale(1.4); opacity: 0; }
-`;
-
-const rotateRing = keyframes`
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+export const Key = styled.div.attrs(props => ({
+  style: {
+    transform: `translateZ(${props.isPressed ? '-20px' : '0px'})`,
+    background: props.isPressed 
+      ? 'linear-gradient(135deg, #ff5733, #ff8e53)' 
+      : 'rgba(255, 255, 255, 0.03)',
+    boxShadow: props.isPressed 
+      ? '0 0 20px rgba(255, 87, 51, 0.5)' 
+      : '0 4px 0 rgba(0,0,0,0.2)',
+  }
+}))`
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: transform 0.1s ease-out;
 `;
  
-const underlineExpand = keyframes`
-  0%,100% { width: 0; }
-  50% { width: 100%; }
-`;
-
-const glowPulse = keyframes`
-  0%,100% { opacity:0; transform:scale(1); box-shadow:0 0 4px rgba(255,87,51,0.6); }
-  50% { opacity:1; transform:scale(1.2); box-shadow:0 0 12px rgba(255,87,51,0.8); }
-`;
-
 export const Section = styled.section`
   min-height: 100vh;
-  background: var(--bg);
-  color: var(--text);
+  background: var(--bg, #0a0a0a);
+  color: var(--text, #fff);
   position: relative;
   overflow: hidden;
-
-  &::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(circle at 20% 20%, rgba(255,87,51,0.1) 0%, transparent 50%),
-      radial-gradient(circle at 80% 80%, rgba(255,87,51,0.08) 0%, transparent 50%);
-    pointer-events: none;
-    z-index: 1;
-  }
+  perspective: 1200px; /* Added for 3D effect */
 `;
 
 export const Hero = styled.div`
@@ -85,16 +81,7 @@ export const Hero = styled.div`
   position: relative;
   z-index: 2;
   gap: 4rem;
-
-  @media (max-width:768px){
-    flex-direction: column;
-    text-align:center;
-    gap:3rem;
-  }
-
-  @media (max-width:480px){
-    gap:2rem;
-  }
+  @media (max-width:768px){ flex-direction: column; text-align:center; gap:3rem; }
 `;
 
 export const HeroLeft = styled.div`
@@ -103,11 +90,7 @@ export const HeroLeft = styled.div`
   opacity:0;
   transform: translateX(-50px);
   animation:${slideInLeft} 1s cubic-bezier(0.25,0.46,0.45,0.94) 0.3s forwards;
-
-  @media (max-width:768px){
-    order:2;
-    text-align:center;
-  }
+  @media (max-width:768px){ order:2; }
 `;
 
 export const HeroRight = styled.div`
@@ -119,10 +102,7 @@ export const HeroRight = styled.div`
   opacity:0;
   transform: translateX(50px);
   animation:${slideInRight} 1s cubic-bezier(0.25,0.46,0.45,0.94) 0.5s forwards;
-
-  @media (max-width:768px){
-    order:1;
-  }
+  @media (max-width:768px){ order:1; }
 `;
 
 export const HeroTitle = styled.h1`
@@ -140,7 +120,6 @@ export const HeroName = styled.span`
   -webkit-background-clip:text;
   -webkit-text-fill-color:transparent;
   position:relative;
-
   &::after{
     content:"";
     position:absolute;
@@ -172,7 +151,6 @@ export const StrongText = styled.strong`
   font-weight:700;
   position:relative;
   margin-left:10px;
-
   &::before{
     content:"";
     position:absolute;
@@ -183,18 +161,6 @@ export const StrongText = styled.strong`
     background:linear-gradient(90deg,#ff5733,#ff8e53);
     border-radius:1px;
     animation:${underlineExpand} 2s ease-in-out infinite;
-  }
-
-  &::after{
-    content:"";
-    position:absolute;
-    top:-2px;
-    right:-8px;
-    width:4px;
-    height:4px;
-    background:#ff5733;
-    border-radius:50%;
-    animation:${glowPulse} 2s infinite 0.5s;
   }
 `;
 
@@ -240,42 +206,12 @@ export const Button = styled.a`
   font-size:1rem;
   position:relative;
   overflow:hidden;
-
   ${props => {
     switch(props.variant) {
-      case 'primary':
-        return `
-          background: linear-gradient(135deg,#ff5733,#ff8e53);
-          color: white;
-          box-shadow: 0 10px 30px rgba(255,87,51,0.4);
-          &:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 15px 40px rgba(255,87,51,0.6);
-          }
-        `;
-      case 'secondary':
-        return `
-          background: rgba(255,255,255,0.1);
-          color: white;
-          border: 1px solid rgba(255,255,255,0.2);
-          backdrop-filter: blur(10px);
-          &:hover {
-            background: rgba(255,255,255,0.2);
-            transform: translateY(-2px);
-          }
-        `;
-      case 'outline':
-        return `
-          color: white;
-          border: 2px solid rgba(255,255,255,0.3);
-          background: transparent;
-          &:hover {
-            background: rgba(255,255,255,0.1);
-            transform: translateY(-2px);
-          }
-        `;
-      default:
-        return '';
+      case 'primary': return `background: linear-gradient(135deg,#ff5733,#ff8e53); color: white; box-shadow: 0 10px 30px rgba(255,87,51,0.4); &:hover { transform: translateY(-2px); box-shadow: 0 15px 40px rgba(255,87,51,0.6); }`;
+      case 'secondary': return `background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.2); backdrop-filter: blur(10px); &:hover { background: rgba(255,255,255,0.2); transform: translateY(-2px); }`;
+      case 'outline': return `color: white; border: 2px solid rgba(255,255,255,0.3); background: transparent; &:hover { background: rgba(255,255,255,0.1); transform: translateY(-2px); }`;
+      default: return '';
     }
   }}
 `;
@@ -300,72 +236,56 @@ export const SocialLink = styled.a`
   backdrop-filter:blur(10px);
   border:1px solid rgba(255,255,255,0.1);
   transition:all 0.3s ease;
-  font-size: 0.85rem;
-  font-weight: 500;
-  text-decoration: none;
-
-  &:hover {
-    color: #ff5733;
-    background: rgba(255,87,51,0.1);
-    transform: translateY(-3px);
-    box-shadow: 0 10px 25px rgba(255,87,51,0.3);
-  }
+  &:hover { color: #ff5733; background: rgba(255,87,51,0.1); transform: translateY(-3px); box-shadow: 0 10px 25px rgba(255,87,51,0.3); }
 `;
 
 export const ImageBox = styled.div`
-  width: clamp(240px,32vw,340px);
-  height: clamp(240px,32vw,340px);
-  border-radius:50%;
-  position:relative;
-  padding:15px;
-  margin:15px;
-  border:15px solid transparent;
-  background: linear-gradient(135deg,rgba(255,87,51,0.15),rgba(255,142,83,0.1));
-  box-shadow:0 50px 100px rgba(0,0,0,0.6);
-  animation:${float} 6s ease-in-out infinite;
-  transition: all 0.6s cubic-bezier(0.25,0.46,0.45,0.94);
-  overflow:hidden;
-
-  &::before{
-    content:"";
-    position:absolute;
-    inset:-15px;
-    border-radius:50%;
-    background:conic-gradient(
-      from 0deg,
-      transparent,
-      #ff5733,
-      #ff8e53,
-      transparent
-    );
-    filter:blur(12px);
-    opacity:0;
-    transition:opacity 0.5s ease;
-    z-index:-1, +1;
+  width: clamp(240px, 32vw, 340px);
+  height: clamp(240px, 32vw, 340px);
+  border-radius: 50%;
+  position: relative;
+  padding: 15px;
+  margin: 15px;
+  perspective: 1200px;
+  transform-style: preserve-3d;
+  background: linear-gradient(135deg, rgba(255, 87, 51, 0.15), rgba(255, 142, 83, 0.1));
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6);
+  
+  /* Upgraded Animation */
+  animation: ${float3D} 6s ease-in-out infinite;
+  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  
+  &:hover {
+    transform: rotateY(15deg) rotateX(10deg) scale(1.08);
+    animation-play-state: paused;
+    box-shadow: 0 50px 100px rgba(255, 87, 51, 0.2);
   }
 
-  &:hover{
-    transform:scale(1.08) rotate(360deg);
-    border:15px solid rgba(255,87,51,0.7);
-    box-shadow:
-      0 80px 160px rgba(255,87,51,0.5),
-      0 0 0 1px rgba(255,255,255,0.2);
-    animation-play-state:paused;
-  }
-
-  &:hover::before{
-    opacity:1;
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    box-shadow: inset 0 0 20px rgba(255, 87, 51, 0.5);
+    animation: ${glowSpin} 10s linear infinite;
   }
 `;
 
 export const ImageRing = styled.div`
-  position:absolute;
-  inset:-4px;
-  border-radius:50%;
-  background:conic-gradient(#ff5733,#ff8e53,transparent);
-  z-index:-1;
-  animation:${rotateRing} 8s linear infinite;
-  opacity:0.6;
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, #ff5733, #ff8e53, transparent, #ff5733);
+  
+  /* Dual Animation: Rotation + 3D Pulsing */
+  animation: 
+    ${rotateRing} 8s linear infinite, 
+    ${ringPulse} 4s ease-in-out infinite;
+    
+  transform: translateZ(-40px);
+  opacity: 0.6;
+  filter: blur(2px);
+  pointer-events: none;
 `;
 
 export const HeroImage = styled.img`
@@ -373,27 +293,12 @@ export const HeroImage = styled.img`
   height:100%;
   object-fit:cover;
   border-radius:50%;
+  transform: translateZ(60px);
+  transition: transform 0.6s ease;
+  ${ImageBox}:hover & { transform: translateZ(80px) scale(1.03); }
 `;
 
-export const HeroStats = styled.div`
-  display:flex;
-  gap:2rem;
-`;
-
-export const StatItem = styled.div`
-  text-align:center;
-`;
-
-export const StatNumber = styled.span`
-  display:block;
-  font-size:2rem;
-  font-weight:800;
-  background:linear-gradient(135deg,#ff5733,#ff8e53);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-`;
-
-export const StatLabel = styled.span`
-  font-size:0.9rem;
-  color:rgba(255,255,255,0.7);
-`;
+export const HeroStats = styled.div` display:flex; gap:2rem; `;
+export const StatItem = styled.div` text-align:center; `;
+export const StatNumber = styled.span` display:block; font-size:2rem; font-weight:800; background:linear-gradient(135deg,#ff5733,#ff8e53); -webkit-background-clip:text; -webkit-text-fill-color:transparent; `;
+export const StatLabel = styled.span` font-size:0.9rem; color:rgba(255,255,255,0.7); `;

@@ -1,9 +1,9 @@
 
-/* body {
+body {
   user-select: none;
   -webkit-user-select: none;
   -ms-user-select: none;
-} */
+}
 
 ::-webkit-scrollbar {
   width: 15px;

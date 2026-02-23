@@ -42,14 +42,8 @@ const GlobalStyle = createGlobalStyle`
 function App() {
   const [loading, setLoading] = useState(true);
   const [darkMode, setDarkMode] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 1500);
-    return () => clearTimeout(timer);
-  }, []);
-
+ 
+  
   useEffect(() => {
     const preventDefault = (e) => e.preventDefault();
 
@@ -78,7 +72,7 @@ function App() {
   }, []);
 
   if (loading) {
-    return <Loader />;
+    return <Loader setLoading={setLoading} />;
   }
 
   return (
