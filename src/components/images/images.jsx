@@ -9,7 +9,7 @@ import github from "../../assets/GitHub-Logo.png";
 import python from "../../assets/python.png";
 import cpp from "../../assets/c++.avif";
 import dbms from "../../assets/dbms.png";
-import mongodb from "../../assets/MongoDB.png"; 
+import mongodb from "../../assets/mongodb.png"; 
 import express from "../../assets/express.webp";
 
 {/* project images */}
