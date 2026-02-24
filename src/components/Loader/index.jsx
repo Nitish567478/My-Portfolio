@@ -7,12 +7,15 @@ import me3 from "../../assets/MyPhotos/me3.jpeg";
 import me4 from "../../assets/MyPhotos/me4.jpeg";
 import me5 from "../../assets/MyPhotos/me5.jpeg";
 import me6 from "../../assets/MyPhotos/me6.jpeg";
+import me7 from "../../assets/MyPhotos/me5.png";
+import me8 from "../../assets/MyPhotos/me6.png";
 
 const Loader = ({ setLoading }) => {
   const [currentImage, setCurrentImage] = useState(0);
   const [showLoadingScreen, setShowLoadingScreen] = useState(false);
+  const [showThanksPopup, setShowThanksPopup] = useState(false);
 
-  const images = [myPhoto, me1, me2, me3, me4, me5, me6];
+  const images = [myPhoto, me1, me2, me3, me4, me5, me6, me7, me8];
   const imageNames = [
     "Me",
     "Photo 1",
@@ -21,25 +24,25 @@ const Loader = ({ setLoading }) => {
     "Photo 4",
     "Photo 5",
     "Photo 6",
+    "Photo 7",
+    "Photo 8",
   ];
 
-  // Only image slider auto change
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImage((prev) => (prev + 1) % images.length);
-    }, 2000);
+    }, 1500);
     return () => clearInterval(interval);
   }, [images.length]);
 
-  // YES → Direct Home
+  // YES → Show popup only
   const handleYes = () => {
-    setLoading(false);
+    setShowThanksPopup(true);
   };
 
-  // NO → Show loader for 2 seconds then Home
+  // NO → Show loader for 2 sec then Home
   const handleNo = () => {
     setShowLoadingScreen(true);
-
     setTimeout(() => {
       setLoading(false);
     }, 2000);
@@ -56,7 +59,18 @@ const Loader = ({ setLoading }) => {
 
       <div className="loader-overlay" />
 
-      {/* 2 sec loading screen */}
+      {/* THANK YOU POPUP */}
+      {showThanksPopup && (
+        <div className="thanks-popup">
+          <div className="popup-box">
+            <h2>Thanks for knowing about me ❤️</h2>
+            <button onClick={() => setShowThanksPopup(false)}>
+              Close
+            </button>
+          </div>
+        </div>
+      )}
+
       {showLoadingScreen && (
         <div className="loading-screen">
           <div className="loading-content">

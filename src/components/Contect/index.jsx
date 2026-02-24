@@ -91,7 +91,7 @@ const Contact = () => {
       setIsSending(false);
     }
   };
-
+ 
   return (
     <ContactSection id="contact">
       <ContactHeading>Contact</ContactHeading>

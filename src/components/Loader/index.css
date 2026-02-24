@@ -385,3 +385,41 @@
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+
+.thanks-popup {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.popup-box {
+  background: #ffffff;
+  padding: 40px 50px;
+  border-radius: 12px;
+  text-align: center;
+  animation: popIn 0.3s ease;
+}
+
+.popup-box h2 {
+  margin-bottom: 20px;
+  color: #ff5733;
+}
+
+.popup-box button {
+  padding: 10px 20px;
+  background: #ff5733;
+  border: none;
+  color: #fff;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+@keyframes popIn {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}

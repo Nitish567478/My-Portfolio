@@ -303,7 +303,7 @@ export const ContactButton = styled.button`
   border-radius:20px;
   font-weight:800;
   cursor:pointer;
-  color:#ffffff;
+  color:#fff;
   background:linear-gradient(90deg,#ff5733,#ff8e53,#ffa726);
   display:flex;
   align-items:center;
@@ -324,11 +324,13 @@ export const ContactButton = styled.button`
     background:linear-gradient(90deg,#ffa726,#ff8e53,#ff5733);
     opacity:0;
     transition:opacity 0.4s ease;
+    color: #fff;
   }
 
-  &:hover:not(:disabled){
+  &:hover{
     transform:translateY(-5px) scale(1.02);
     box-shadow:0 25px 55px rgba(255,87,51,0.45);
+    color: #fff;
   }
 
   &:hover:not(:disabled)::before{

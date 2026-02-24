@@ -9,7 +9,7 @@ export const lightTheme = {
 };
 
 export const darkTheme = {
-  background: "#0d0d0d", //#a63b68
+  background: "#242323", //#a63b68
   text: "#ffffff",
   navBg: "rgba(13,13,13,0.95)",
   accent: "#ff5733",

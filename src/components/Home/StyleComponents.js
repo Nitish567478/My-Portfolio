@@ -195,26 +195,164 @@ export const HeroButtons = styled.div`
 `;
 
 export const Button = styled.a`
-  display:inline-flex;
-  align-items:center;
-  gap:10px;
-  padding:1.1rem 2.2rem;
-  font-weight:600;
-  border-radius:50px;
-  text-decoration:none;
-  transition:0.4s;
-  font-size:1rem;
-  position:relative;
-  overflow:hidden;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 1.1rem 2.2rem;
+  font-weight: 600;
+  border-radius: 50px;
+  text-decoration: none;
+  font-size: 1rem;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-family: inherit;
+  user-select: none;
+
+  /* Shimmer sweep effect */
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg, 
+      transparent 0%, 
+      rgba(255,255,255,0.4) 50%, 
+      transparent 100%
+    );
+    transition: left 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1;
+  }
+
+  &:hover::before {
+    left: 100%;
+  }
+
+  /* Initial glow */
+  box-shadow: ${props => 
+    props.variant === 'primary' 
+      ? '0 10px 25px rgba(255,87,51,0.3)'
+      : props.variant === 'secondary'
+      ? '0 8px 20px rgba(0,0,0,0.1)'
+      : '0 8px 20px rgba(0,0,0,0.1)'
+  };
+
   ${props => {
-    switch(props.variant) {
-      case 'primary': return `background: linear-gradient(135deg,#ff5733,#ff8e53); color: white; box-shadow: 0 10px 30px rgba(255,87,51,0.4); &:hover { transform: translateY(-2px); box-shadow: 0 15px 40px rgba(255,87,51,0.6); }`;
-      case 'secondary': return `background: rgba(255,255,255,0.1); color: white; border: 1px solid rgba(255,255,255,0.2); backdrop-filter: blur(10px); &:hover { background: rgba(255,255,255,0.2); transform: translateY(-2px); }`;
-      case 'outline': return `color: white; border: 2px solid rgba(255,255,255,0.3); background: transparent; &:hover { background: rgba(255,255,255,0.1); transform: translateY(-2px); }`;
-      default: return '';
+    switch (props.variant) {
+      case "primary":
+        return `
+          background: linear-gradient(135deg, #ff5733 0%, #ff8e53 50%, #ff6b3a 100%);
+          color: #fff;
+          border: none;
+
+          &:hover {
+            transform: translateY(-5px) scale(1.05);
+            background: linear-gradient(135deg, #ff8e53 0%, #ff5733 50%, #ff6b3a 100%);
+            box-shadow: 
+              0 25px 50px rgba(255,87,51,0.6),
+              0 0 35px rgba(255,87,51,0.4);
+          }
+        `;
+
+      case "secondary":
+        return `
+          background: rgba(255,255,255,0.12);
+          color: #fff;
+          border: 1px solid rgba(255,255,255,0.25);
+          backdrop-filter: blur(15px);
+
+          &:hover {
+            background: rgba(255,87,51,0.18);
+            border-color: rgba(255,87,51,0.6);
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 
+              0 20px 40px rgba(255,87,51,0.35),
+              0 0 25px rgba(255,87,51,0.2);
+          }
+        `;
+
+      case "outline":
+        return `
+          background: rgba(255,255,255,0.05);
+          color: #fff;
+          border: 2px solid rgba(255,255,255,0.4);
+          backdrop-filter: blur(10px);
+
+          &:hover {
+            background: linear-gradient(135deg, #ff5733 0%, #ff8e53 100%);
+            border-color: transparent;
+            color: #fff;
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 
+              0 20px 45px rgba(255,87,51,0.55),
+              0 0 30px rgba(255,87,51,0.35);
+          }
+        `;
+
+      default:
+        return "";
     }
   }}
+
+  /* Arrow slide animation */
+  &:hover span {
+    transform: translateX(8px);
+  }
+
+  /* Active state */
+  &:active {
+    transform: translateY(-2px) scale(1.02);
+    transition: all 0.2s ease;
+  }
+
+  /* Ripple click effect */
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.4);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease, height 0.6s ease;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  &:active::after {
+    width: 400px;
+    height: 400px;
+  }
+
+  /* Focus accessibility */
+  &:focus-visible {
+    outline: 2px solid rgba(255,87,51,0.8);
+    outline-offset: 2px;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    padding: 1rem 2rem;
+    font-size: 0.95rem;
+    width: 100%;
+    max-width: 320px;
+    justify-content: center;
+  }
+
+  @media (max-width: 480px) {
+    padding: 0.9rem 1.5rem;
+    font-size: 0.9rem;
+  }
 `;
+
 
 export const HeroSocial = styled.div`
   display:flex;

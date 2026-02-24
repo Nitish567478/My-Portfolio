@@ -10,6 +10,7 @@ import NavBar from "./components/NavBar";
 import Skills from "./components/Skills";
 import Footer from "./components/Footer";
 import Loader from "./components/Loader";
+import Achievements from "./components/Achievements";
 import "./App.css";
 
 const GlobalStyle = createGlobalStyle`
@@ -82,6 +83,7 @@ function App() {
       <Home />
       <About />
       <Skills />
+      <Achievements />
       <Project />
       <Contect />
       <Footer />

@@ -56,8 +56,7 @@ const Home = () => {
   useEffect(() => { setIsVisible(true); }, []);
 
   return (
-    <Section id="home">
-      {/* 3D Reactive Keyboard Background Layer */}
+    <Section id="home">  
       <KeyboardBG>
         {bgKeys.map((_, i) => {
           const id = `key-${i}`;
@@ -66,7 +65,7 @@ const Home = () => {
           if (el) {
             const r = el.getBoundingClientRect();
             const dist = Math.sqrt(Math.pow(mousePos.x - (r.left + r.width/2), 2) + Math.pow(mousePos.y - (r.top + r.height/2), 2));
-            isPressed = dist < 100; // Activation radius
+            isPressed = dist < 100; 
           }
           return <Key id={id} key={i} isPressed={isPressed} />;
         })}
