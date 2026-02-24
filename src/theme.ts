@@ -1,4 +1,6 @@
-export const lightTheme = {
+import { DefaultTheme } from 'styled-components';
+
+export const lightTheme: DefaultTheme = {
   background: "#a04848",
   text: "#ffffff",
   navBg: "rgba(255,255,255,0.95)",
@@ -8,8 +10,8 @@ export const lightTheme = {
   shadow: "0 4px 20px rgba(0,0,0,0.1)"
 };
 
-export const darkTheme = {
-  background: "#242323", //#a63b68
+export const darkTheme: DefaultTheme = {
+  background: "#242323",
   text: "#ffffff",
   navBg: "rgba(13,13,13,0.95)",
   accent: "#ff5733",

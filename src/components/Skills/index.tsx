@@ -7,7 +7,7 @@ import {
   SkillItem,
   SkillIcon,
   SkillLabel
-} from "./StyleComponents";
+} from "./StyleComponents.js";
 
 const skills = [
   { name: "C++", img: images.cpp },

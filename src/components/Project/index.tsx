@@ -1,6 +1,6 @@
 import React from "react";
 import images from "../images/images.jsx";
-import FeaturedProject from "../FeaturedProject";
+import FeaturedProject from "../FeaturedProject/index.js";
 import {
   ProjectsSection,
   ProjectsHeading,
@@ -12,7 +12,7 @@ import {
   ProjectLinks,
   ProjectButton,
   SeeAllContainer
-} from "./StyleComponents";
+} from "./StyleComponents.js";
 
 const Projects = () => {
   const projectsData = [
