@@ -1,6 +1,6 @@
 import React from "react";
 import images from "../images/images.jsx";
-import FeaturedProject from "../FeaturedProject/index.js";
+import FeaturedProject from "../FeaturedProject/index.jsx";
 import {
   ProjectsSection,
   ProjectsHeading,

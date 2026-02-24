@@ -12,7 +12,7 @@ import {
   ProjectLink,
   ProjectTech,
   TechTag
-} from "./StyleComponents";
+} from "./StyleComponents.js";
 
 const FeaturedProject = () => {
   return (
