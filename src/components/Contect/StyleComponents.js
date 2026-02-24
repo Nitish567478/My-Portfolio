@@ -327,16 +327,6 @@ export const ContactButton = styled.button`
     color: #fff;
   }
 
-  &:hover{
-    transform:translateY(-5px) scale(1.02);
-    box-shadow:0 25px 55px rgba(255,87,51,0.45);
-    color: #fff;
-  }
-
-  &:hover:not(:disabled)::before{
-    opacity:1;
-  }
-
   &:active{
     transform:translateY(-2px) scale(1);
   }
