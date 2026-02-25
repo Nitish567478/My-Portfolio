@@ -31,21 +31,19 @@ const Loader = ({ setLoading }) => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImage((prev) => (prev + 1) % images.length);
-    }, 1500);
+    }, 2000);
     return () => clearInterval(interval);
   }, [images.length]);
 
-  // YES → Show popup only
   const handleYes = () => {
     setShowThanksPopup(true);
   };
 
-  // NO → Show loader for 2 sec then Home
   const handleNo = () => {
     setShowLoadingScreen(true);
     setTimeout(() => {
       setLoading(false);
-    }, 2000);
+    }, 1000);
   };
 
   const goToImage = (index) => setCurrentImage(index);
@@ -87,7 +85,7 @@ const Loader = ({ setLoading }) => {
               <div className="logo-placeholder">NY</div>
             </div>
 
-            <h1 className="loader-heading">Welcome To My World</h1>
+            <h1 className="loader-heading">Creative Full Stack Developer</h1>
 
             <div className="loader-content">
               <p className="loader-par">Do You Know About Me?</p>

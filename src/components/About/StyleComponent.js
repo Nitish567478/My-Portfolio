@@ -167,66 +167,60 @@ export const EducationHeading = styled.h3`
   }
 `;
 
-export const EducationList = styled.ul`
-  list-style: none;
-  padding: 0;
-  display: grid;
-  gap: 1.5rem;
-
-  @media (max-width:768px){
-    gap: 1rem;
-  }
+export const EducationList = styled.div`
+  position: relative;
+  padding-left: 20px;
+  border-left: 2px solid rgba(255, 87, 51, 0.3); // Vertical Timeline Line
 `;
 
-export const EducationItem = styled.li`
-  background: rgba(26,26,26,0.8);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgba(255,87,51,0.2);
-  padding: 2rem;
-  border-radius: 16px;
+export const EducationItem = styled.div`
+  background: rgba(255, 255, 255, 0.03);
+  padding: 20px;
+  border-radius: 15px;
+  margin-bottom: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
   position: relative;
-  transition: all 0.4s cubic-bezier(0.25,0.46,0.45,0.94);
-  overflow: hidden;
-  animation: ${fadeInUp} 0.8s cubic-bezier(0.25,0.46,0.45,0.94) 0.6s both;
+  transition: all 0.3s ease;
 
-  &::before {
+  &::before { // Timeline Dot
     content: "";
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 4px;
-    height: 100%;
-    background: linear-gradient(to bottom, #ff5733, #ff8e53);
-    border-radius: 2px 0 0 2px;
+    left: -27px;
+    top: 25px;
+    width: 12px;
+    height: 12px;
+    background: #ff5733;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #ff5733;
   }
 
   &:hover {
-    transform: translateY(-8px) scale(1.02);
-    box-shadow:
-      0 20px 40px rgba(255,87,51,0.15),
-      0 0 0 1px rgba(255,87,51,0.2);
-    background: rgba(26,26,26,0.95);
-    border-color: rgba(255,87,51,0.4);
+    transform: translateX(10px);
+    background: rgba(255, 87, 51, 0.05);
+    border-color: rgba(255, 87, 51, 0.4);
   }
 
   strong {
-    color: #ff5733;
-    font-size: 1.2rem;
-    font-weight: 700;
     display: block;
-    margin-bottom: 0.5rem;
-    text-shadow: 0 2px 8px rgba(255,87,51,0.3);
+    font-size: 1.15rem;
+    color: #fff;
+    margin-bottom: 5px;
+  }
+
+  p {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.95rem;
   }
 
   span {
-    color: #aaa;
-    font-size: 0.95rem;
-    font-weight: 400;
-    letter-spacing: 0.5px;
-  }
-
-  @media (max-width:768px){
-    width: 100%;
-    border-radius: 12px;
+    display: inline-block;
+    margin-top: 10px;
+    font-size: 0.85rem;
+    color: #ff8e53;
+    font-weight: 600;
+    background: rgba(255, 142, 83, 0.1);
+    padding: 3px 12px;
+    border-radius: 20px;
   }
 `;

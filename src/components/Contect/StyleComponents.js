@@ -296,56 +296,56 @@ export const ContactTextarea = styled.textarea`
   resize:vertical;
 `;
 
-export const ContactButton = styled.button`
-  width:100%;
-  padding:18px 28px;
-  border:none;
-  border-radius:20px;
-  font-weight:800;
-  cursor:pointer;
-  color:#fff;
-  background:linear-gradient(90deg,#ff5733,#ff8e53,#ffa726);
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:12px;
-  position:relative;
-  overflow:hidden;
-  transition:all 0.4s cubic-bezier(0.25,0.46,0.45,0.94);
-  box-shadow:0 15px 35px rgba(255,87,51,0.3);
-  letter-spacing:0.8px;
-  text-transform:uppercase;
-  font-size:0.95rem;
 
-  &::before{
-    content:"";
-    position:absolute;
-    inset:0;
-    background:linear-gradient(90deg,#ffa726,#ff8e53,#ff5733);
-    opacity:0;
-    transition:opacity 0.4s ease;
-    color: #fff;
-  }
+//   width:100%;
+//   padding:18px 28px;
+//   border:none;
+//   border-radius:20px;
+//   font-weight:800;
+//   cursor:pointer;
+//   color:#fff;
+//   background:linear-gradient(90deg,#ff5733,#ff8e53,#ffa726);
+//   display:flex;
+//   align-items:center;
+//   justify-content:center;
+//   gap:12px;
+//   position:relative;
+//   overflow:hidden;
+//   transition:all 0.4s cubic-bezier(0.25,0.46,0.45,0.94);
+//   box-shadow:0 15px 35px rgba(255,87,51,0.3);
+//   letter-spacing:0.8px;
+//   text-transform:uppercase;
+//   font-size:0.95rem;
 
-  &:active{
-    transform:translateY(-2px) scale(1);
-  }
+//   &::before{
+//     content:"";
+//     position:absolute;
+//     inset:0;
+//     background:linear-gradient(90deg,#ffa726,#ff8e53,#ff5733);
+//     opacity:0;
+//     transition:opacity 0.4s ease;
+//     color: #fff;
+//   }
 
-  &:hover svg{
-    transform:translateX(8px);
-  }
+//   &:active{
+//     transform:translateY(-2px) scale(1);
+//   }
 
-  svg{
-    font-size:1.25rem;
-    transition:transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94);
-  }
+//   &:hover svg{
+//     transform:translateX(8px);
+//   }
 
-  &:disabled {
-    opacity: 0.7;
-    cursor: not-allowed;
-    transform: none;
-  }
-`;
+//   svg{
+//     font-size:1.25rem;
+//     transition:transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94);
+//   }
+
+//   &:disabled {
+//     opacity: 0.7;
+//     cursor: not-allowed;
+//     transform: none;
+//   }
+// `;
 
 export const MessageContainer = styled.div`
   position: fixed;
@@ -397,4 +397,77 @@ export const SuccessIcon = styled.div`
 
 export const ErrorIcon = styled.div`
   svg { width: 24px; height: 24px; }
+`;
+
+// 1. Shimmer Animation define karein
+const shimmer = keyframes`
+  0% { transform: translateX(-100%) skewX(-15deg); }
+  100% { transform: translateX(200%) skewX(-15deg); }
+`;
+
+// 2. Updated ContactButton
+export const ContactButton = styled.button`
+  width: 100%;
+  padding: 18px 28px;
+  border: none;
+  border-radius: 20px;
+  font-weight: 800;
+  cursor: pointer;
+  color: #fff;
+  background: linear-gradient(90deg, #ff5733, #ff8e53, #ffa726);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  position: relative;
+  overflow: hidden; // Shine ko button ke andar rakhne ke liye
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  box-shadow: 0 15px 35px rgba(255, 87, 51, 0.3);
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  font-size: 0.95rem;
+
+  // --- Shimmer Layer ---
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+      to right,
+      transparent,
+      rgba(255, 255, 255, 0.4),
+      transparent
+    );
+    animation: ${shimmer} 3s infinite;
+    pointer-events: none;
+  }
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 20px 45px rgba(255, 87, 51, 0.45);
+    filter: brightness(1.1);
+  }
+
+  &:active {
+    transform: translateY(-1px) scale(0.98);
+  }
+
+  svg {
+    font-size: 1.25rem;
+    transition: transform 0.4s ease;
+  }
+
+  &:hover svg {
+    transform: translateX(8px) rotate(-10deg);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    animation: none;
+    &::before { display: none; }
+  }
 `;

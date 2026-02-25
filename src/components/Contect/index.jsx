@@ -28,7 +28,7 @@ const Contact = () => {
     message: "",
   });
   const [isSending, setIsSending] = useState(false);
-  const [messageStatus, setMessageStatus] = useState(null); // null, 'success', 'error'
+  const [messageStatus, setMessageStatus] = useState(null); 
   const [messageText, setMessageText] = useState("");
 
   const handleChange = (e) => {
@@ -54,11 +54,13 @@ const Contact = () => {
     };
 
     const autoReplyTemplateParams = {
-      user_name: formData.from_name,
-      user_email: formData.from_email,
+      to_name: formData.from_name,
+      to_email: formData.from_email,
       message: formData.message,
+      from_name: "Nitish Kumar Yadav",
+      from_email: "kumarnitsh147grd@gmail.com",
     };
-
+    
     try {
       await emailjs.send(
         "service_xzuz89a",
