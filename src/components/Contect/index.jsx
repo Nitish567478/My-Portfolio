@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { FiSend, FiMail, FiMapPin, FiClock, FiCheckCircle, FiXCircle } from "react-icons/fi";
 import emailjs from "@emailjs/browser";
+
 import {
   ContactSection,
   ContactContainer,
@@ -27,8 +28,9 @@ const Contact = () => {
     from_email: "",
     message: "",
   });
+
   const [isSending, setIsSending] = useState(false);
-  const [messageStatus, setMessageStatus] = useState(null); 
+  const [messageStatus, setMessageStatus] = useState(null);
   const [messageText, setMessageText] = useState("");
 
   const handleChange = (e) => {
@@ -44,68 +46,72 @@ const Contact = () => {
     e.preventDefault();
     setIsSending(true);
     setMessageStatus(null);
+    setMessageText("");
 
-    const adminTemplateParams = {
-      to_name: "Nitish Kumar Yadav",
-      to_email: "kumarnitsh147grd@gmail.com",
-      from_name: formData.from_name,
-      from_email: formData.from_email,
-      message: formData.message,
-    };
-
-    const autoReplyTemplateParams = {
-      to_name: formData.from_name,
-      to_email: formData.from_email,
-      message: formData.message,
-      from_name: "Nitish Kumar Yadav",
-      from_email: "kumarnitsh147grd@gmail.com",
-    };
-    
     try {
-      await emailjs.send(
+      const adminRes = await emailjs.send(
         "service_xzuz89a",
         "template_bzk3mv9",
-        adminTemplateParams,
+        {
+          to_name: "Nitish Kumar Yadav",
+          to_email: "kumarnitsh147grd@gmail.com",
+          from_name: formData.from_name,
+          from_email: formData.from_email,
+          message: formData.message,
+        },
         "_rYUni-xtUrX7x4wk"
       );
 
-      await emailjs.send(
+      const autoRes = await emailjs.send(
         "service_xzuz89a",
         "template_678eors",
-        autoReplyTemplateParams,
+        {
+          to_name: formData.from_name,
+          to_email: formData.from_email,
+          message: formData.message,
+          from_name: "Nitish Kumar Yadav",
+          from_email: "kumarnitsh147grd@gmail.com",
+        },
         "_rYUni-xtUrX7x4wk"
       );
 
-      setMessageStatus("success");
-      setMessageText("Message sent successfully! 🎉");
-      setFormData({ from_name: "", from_email: "", message: "" });
-      
-      // Auto hide success message after 5 seconds
-      setTimeout(hideMessage, 5000);
+      if (adminRes.status === 200 && autoRes.status === 200) {
+        setMessageStatus("success");
+        setMessageText("Message sent successfully!");
+        setFormData({ from_name: "", from_email: "", message: "" });
+        setTimeout(hideMessage, 5000);
+      } else {
+        throw new Error("Email failed");
+      }
     } catch (error) {
       console.error("EmailJS Error:", error);
       setMessageStatus("error");
       setMessageText("Failed to send message. Please try again.");
-      
-      // Auto hide error message after 7 seconds
       setTimeout(hideMessage, 7000);
     } finally {
       setIsSending(false);
     }
   };
- 
+
   return (
     <ContactSection id="contact">
+
+      {/* 🔹 Top Center Content */}
+      <StatusBadge>
+        <span className="dot"></span> Available for new projects
+      </StatusBadge>
+
       <ContactHeading>Contact</ContactHeading>
+
+      {/* <ContactHeading>Let's build something great.</ContactHeading> */}
+
+      <ContactText>
+        Have a project, opportunity, or collaboration in mind? Let’s connect.
+      </ContactText>
       <ContactContainer>
+
+        {/* LEFT SIDE */}
         <InfoSide>
-          <StatusBadge>
-            <span className="dot"></span> Available for new projects
-          </StatusBadge>
-          <ContactHeading>Let's build something great.</ContactHeading>
-          <ContactText>
-            I'm currently looking for new opportunities. Whether you have a question or just want to say hi, I'll try my best to get back to you!
-          </ContactText>
 
           <InfoItem>
             <div className="icon"><FiMapPin /></div>
@@ -132,26 +138,26 @@ const Contact = () => {
               <p>Within 24 hours</p>
             </div>
           </InfoItem>
+
         </InfoSide>
 
+        {/* RIGHT SIDE */}
         <FormSide>
-          {/* Top Left Message Display */}
           {messageStatus && (
-            <MessageContainer status={messageStatus} onClick={hideMessage}>
-              {messageStatus === "success" ? (
-                <>
-                  <SuccessIcon><FiCheckCircle /></SuccessIcon>
-                  <MessageText>{messageText}</MessageText>
-                </>
-              ) : (
-                <>
-                  <ErrorIcon><FiXCircle /></ErrorIcon>
-                  <MessageText>{messageText}</MessageText>
-                </>
-              )}
-            </MessageContainer>
-          )}
-
+              <MessageContainer status={messageStatus} onClick={hideMessage}>
+                {messageStatus === "success" ? (
+                  <>
+                    <SuccessIcon><FiCheckCircle /></SuccessIcon>
+                    <MessageText>{messageText}</MessageText>
+                  </>
+                ) : (
+                  <>
+                    <ErrorIcon><FiXCircle /></ErrorIcon>
+                    <MessageText>{messageText}</MessageText>
+                  </>
+                )}
+              </MessageContainer>
+            )}
           <ContactForm onSubmit={handleSubmit}>
             <ContactInput
               type="text"
@@ -182,7 +188,24 @@ const Contact = () => {
             <ContactButton type="submit" disabled={isSending}>
               {isSending ? "Sending..." : "Send Message"} <FiSend />
             </ContactButton>
+
+            {/* {messageStatus && (
+              <MessageContainer status={messageStatus} onClick={hideMessage}>
+                {messageStatus === "success" ? (
+                  <>
+                    <SuccessIcon><FiCheckCircle /></SuccessIcon>
+                    <MessageText>{messageText}</MessageText>
+                  </>
+                ) : (
+                  <>
+                    <ErrorIcon><FiXCircle /></ErrorIcon>
+                    <MessageText>{messageText}</MessageText>
+                  </>
+                )}
+              </MessageContainer>
+            )} */}
           </ContactForm>
+
         </FormSide>
       </ContactContainer>
     </ContactSection>

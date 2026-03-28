@@ -16,17 +16,7 @@ const Loader = ({ setLoading }) => {
   const [showThanksPopup, setShowThanksPopup] = useState(false);
 
   const images = [myPhoto, me1, me2, me3, me4, me5, me6, me7, me8];
-  const imageNames = [
-    "Me",
-    "Photo 1",
-    "Photo 2",
-    "Photo 3",
-    "Photo 4",
-    "Photo 5",
-    "Photo 6",
-    "Photo 7",
-    "Photo 8",
-  ];
+  const imageNames = [];
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -43,7 +33,7 @@ const Loader = ({ setLoading }) => {
     setShowLoadingScreen(true);
     setTimeout(() => {
       setLoading(false);
-    }, 1000);
+    }, 100);
   };
 
   const goToImage = (index) => setCurrentImage(index);

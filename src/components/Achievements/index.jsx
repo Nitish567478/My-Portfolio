@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
+//import assets from "../Certificate";
+
+
+
 import {
   Section,
-  
   TopStatsSection,
   TotalNumber,
   TotalLabel,
@@ -10,6 +13,25 @@ import {
   AchievementCard,
   AchievementNumber,
   AchievementTitle,
+  CardContain, 
+  CardInner,
+  CardFront,
+  CardImage,
+  // CardBack,
+  CardHeading,
+  CardDescription,
+  Card,
+  Button,
+  ModalOverlay,
+  ModalContent,
+  CloseButton,
+  ModalHeading,
+  ModalGrid,
+  ModalCard,
+  ModalImage,
+  ModalCardTitle,
+  ModalCardDescription,
+  ExternalLink,
 } from "./StyleComponents";
 
 const achievementsData = [
@@ -23,42 +45,68 @@ const achievementsData = [
   { title: "Algorithm Expert", number: 300 },
 ];
 
+const certificateFiles = import.meta.glob("../../assets/certificates/*.{jpeg,jpg,png}", { eager: true, as: "url" });
+
+const allCertificates = Object.entries(certificateFiles)
+  .map(([path, url]) => {
+    const fileName = path.split("/").pop();
+    return {
+      id: fileName,
+      url,
+      name: fileName,
+      type: "image",
+      description: "Image certificate"
+    };
+  })
+  .sort((a, b) => a.name.localeCompare(b.name));
+
+const cardData = allCertificates.slice(0, 4);
+
 const Counter = ({ target }) => {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
-    let start = 0;
-    const duration = 1500;
-    const increment = target / (duration / 20);
+  let start = 0;
+  const duration = 1500;
+  let startTime = null;
 
-    const timer = setInterval(() => {
-      start += increment;
-      if (start >= target) {
-        setCount(target);
-        clearInterval(timer);
-      } else {
-        setCount(Math.floor(start));
-      }
-    }, 20);
+  const animate = (timestamp) => {
+    if (!startTime) startTime = timestamp;
+    const progress = timestamp - startTime;
 
-    return () => clearInterval(timer);
-  }, [target]);
+    const value = Math.min((progress / duration) * target, target);
+    setCount(Math.floor(value));
+
+    if (progress < duration) {
+      requestAnimationFrame(animate);
+    }
+  };
+
+  requestAnimationFrame(animate);
+}, [target]);
 
   return <>{count}+</>;
 };
 
 const Achievements = () => {
+  const [flippedCards, setFlippedCards] = useState({});
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const toggleFlip = (index) => {
+    setFlippedCards(prev => ({
+      ...prev,
+      [index]: !prev[index]
+    }));
+  };
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+  const closeModal = () => setIsModalOpen(false);
+
   return (
     <Section id="achievements">
-
-      {/* <TopStatsSection>
-        <TotalNumber>
-          <Counter target={300} />
-        </TotalNumber>
-        <TotalLabel>Total Problems Solved</TotalLabel>
-      </TopStatsSection> */}
-
-      <AchievementsHeading>Coding Achievements</AchievementsHeading>
+      <AchievementsHeading>Achievements & Certificates</AchievementsHeading>
 
       <AchievementsGrid>
         {achievementsData.map((item, index) => (
@@ -71,6 +119,47 @@ const Achievements = () => {
         ))}
       </AchievementsGrid>
 
+      <Card>
+        {cardData.map((item, index) => (
+          <CardContain key={item.id}>
+            {/* Flip commented out for static display */}
+            <CardInner
+              flipped={false}
+              // onClick={() => toggleFlip(index)}
+            >
+              <CardFront>
+                <CardImage src={item.url} alt={item.name} />
+              </CardFront>
+            </CardInner>
+          </CardContain>
+          
+        ))}
+      </Card>
+      <Button onClick={openModal}>My All Certificate ↗</Button>
+
+      {isModalOpen && (
+        <ModalOverlay onClick={closeModal}>
+          <ModalContent onClick={(e) => e.stopPropagation()}>
+            <CloseButton onClick={closeModal}>&times;</CloseButton>
+            <ModalHeading>All Certificates</ModalHeading>
+            <ModalGrid>
+              {allCertificates.map((item, index) => (
+                <ModalCard
+                  key={item.id}
+                  style={{
+                    border: "1px solid rgba(255,255,255,0.16)",
+                  }}
+                >
+                  <ModalImage src={item.url} alt={item.name} />
+                  <ExternalLink href={item.url} target="_blank" rel="noopener noreferrer">
+                    Open Certificate ↗
+                  </ExternalLink>
+                </ModalCard>
+              ))}
+            </ModalGrid>
+          </ModalContent>
+        </ModalOverlay>
+      )}
     </Section>
   );
 };

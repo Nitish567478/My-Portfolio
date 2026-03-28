@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import myPhoto from "../../assets/myphoto.png";
+import me from "../../assets/me.png";
+import me1 from "../../assets/me1.png";
+import me3 from "../../assets/me3.jpeg";
 import {
   Section, Hero, HeroLeft, HeroRight, HeroTitle, HeroName, HeroRole, StrongText,
   Cursor, HeroDescription, HeroButtons, Button, HeroSocial, SocialLink,
@@ -9,6 +12,12 @@ import {
 
 const Home = () => {
   const roles = ["Frontend Developer", "Backend Developer", "Full Stack Developer"];
+  const heroImages = [
+    { src: me, alt: "Nitish Kumar Yadav portrait 1" },
+    { src: myPhoto, alt: "Nitish Kumar Yadav portrait 2" },
+    { src: me1, alt: "Nitish Kumar Yadav portrait 3" },
+    { src: me3, alt: "Nitish Kumar Yadav portrait 4" },
+  ];
   const [text, setText] = useState("");
   const [roleIndex, setRoleIndex] = useState(0);
   const [charIndex, setCharIndex] = useState(0);
@@ -16,6 +25,7 @@ const Home = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [delta, setDelta] = useState(120);
   const [mousePos, setMousePos] = useState({ x: -1000, y: -1000 });
+  const [activeImageIndex, setActiveImageIndex] = useState(0);
 
   // Array for background keys (approx 200 keys)
   const bgKeys = Array.from({ length: 200 });
@@ -55,6 +65,14 @@ const Home = () => {
 
   useEffect(() => { setIsVisible(true); }, []);
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveImageIndex((prev) => (prev + 1) % heroImages.length);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [heroImages.length]);
+
   return (
     <Section id="home">  
       <KeyboardBG>
@@ -76,8 +94,11 @@ const Home = () => {
           <HeroTitle>Hi, I'm <HeroName>Nitish Kumar Yadav</HeroName></HeroTitle>
           <HeroRole>I'm a <StrongText>{text}</StrongText><Cursor /></HeroRole>
           <HeroDescription>
-            Building modern, interactive and user-friendly web applications 
+            {/* Building modern, interactive and user-friendly web applications 
             using React.js, Node.js and modern web technologies.
+            <br /> <br />  */}
+            I build scalable, high-performance web applications with clean user interfaces and reliable backend systems.  
+Focused on practical solutions, performance, and user experience.
           </HeroDescription>
           <HeroButtons>
             <Button href="#projects" variant="primary">View My Work ↗</Button>
@@ -85,7 +106,7 @@ const Home = () => {
             <Button href="Nitish_Kumar_Yadav.pdf" variant="outline" download>Download Resume ↗</Button>
           </HeroButtons>
           <HeroSocial>
-            <SocialLink href="https://github.com/Nitish567478" target="_blank" rel="noopener noreferrer">
+            <SocialLink href="https://www.linkedin.com/in/nitishkumaryadav111" target="_blank" rel="noopener noreferrer">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
             </SocialLink>
             <SocialLink href="https://github.com/Nitish567478" target="_blank" rel="noopener noreferrer">
@@ -96,7 +117,13 @@ const Home = () => {
 
         <HeroRight isVisible={isVisible}>
           <ImageBox>
-            <ImageRing /><HeroImage src={myPhoto} alt="Nitish Kumar Yadav" />
+            <ImageRing />
+            <HeroImage
+              key={heroImages[activeImageIndex].alt}
+              src={heroImages[activeImageIndex].src}
+              alt={heroImages[activeImageIndex].alt}
+              variant="center"
+            />
           </ImageBox>
           <HeroStats>
             <StatItem><StatNumber>20+</StatNumber><StatLabel>Projects</StatLabel></StatItem>

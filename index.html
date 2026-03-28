@@ -1,21 +1,169 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="/me5.png" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
-    <meta name="description" content="Portfolio of Nitish Kumar Yadav - Frontend Developer specializing in React and TypeScript." />
-    <meta name="author" content="Nitish Kumar Yadav" />
+<head>
 
-    <meta property="og:title" content="Nitish Kumar Yadav" />
-    <meta property="og:description" content="Frontend Developer | React | TypeScript" />
-    <meta property="og:type" content="website" />
-    <meta property="og:image" content="/preview.png" />
-    <title>Nitish Kumar Yadav</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+  <!-- Basic Setup -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0f172a" />
+  <link rel="icon" type="image/png" href="/me5.png" />
+
+  <link rel="icon" href="/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon.png" />
+  <link rel="apple-touch-icon" href="/favicon.png" />
+
+  <!-- Primary SEO -->
+  <title>Full Stack Developer Portfolio | Nitish Kumar Yadav (React, Node.js, MERN)</title>
+
+  <meta name="description" content="Portfolio of Nitish Kumar Yadav, a Full Stack Developer specializing in React.js, Node.js, MongoDB, and real-time web applications. Explore projects, AI tools, and scalable systems." />
+
+  <meta name="keywords" content="Nitish Kumar Yadav, Full Stack Developer, MERN Stack Developer, React Developer, Node.js Developer, Web Developer India, JavaScript Developer Portfolio" />
+
+  <meta name="author" content="Nitish Kumar Yadav" />
+  <meta name="robots" content="index, follow" />
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://nitishyadav0.netlify.app/" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Nitish Kumar Yadav | Full Stack Developer Portfolio" />
+  <meta property="og:description" content="React.js and Node.js developer building scalable, real-time applications and AI tools." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://nitishyadav0.netlify.app/" />
+  <meta property="og:image" content="https://nitishyadav0.netlify.app/preview.png" />
+  <meta property="og:site_name" content="Nitish Kumar Yadav Portfolio" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Nitish Kumar Yadav | Full Stack Developer" />
+  <meta name="twitter:description" content="MERN Stack Developer building modern web apps and AI tools." />
+  <meta name="twitter:image" content="https://nitishyadav0.netlify.app/preview.png" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+  <!-- Performance -->
+  <link rel="preconnect" href="https://www.googletagmanager.com">
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+
+  <!-- Mobile Optimization -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Nitish Portfolio">
+
+  <!-- Geo SEO -->
+  <meta name="geo.region" content="IN-JH">
+  <meta name="geo.placename" content="Ranchi, Jharkhand, India">
+  <meta name="geo.position" content="23.3441;85.3096">
+  <meta name="ICBM" content="23.3441, 85.3096">
+
+  <!-- Security -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+
+  <!-- ✅ Structured Data: Person -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Nitish Kumar Yadav",
+    "url": "https://nitishyadav0.netlify.app/",
+    "image": "https://nitishyadav0.netlify.app/preview.png",
+    "jobTitle": "Full Stack Developer",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "Freelance"
+    },
+    "alumniOf": {
+      "@type": "CollegeOrUniversity",
+      "name": "RKDF University"
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Ranchi",
+      "addressRegion": "Jharkhand",
+      "addressCountry": "IN"
+    },
+    "sameAs": [
+      "https://github.com/Nitish567478",
+      "https://www.linkedin.com/in/nitishkumaryadav111"
+    ],
+    "knowsAbout": [
+      "React.js",
+      "Node.js",
+      "MongoDB",
+      "JavaScript",
+      "MERN Stack",
+      "Web Development",
+      "REST APIs",
+      "WebSockets"
+    ]
+  }
+  </script>
+
+  <!-- ✅ Structured Data: Website -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Nitish Kumar Yadav Portfolio",
+    "url": "https://nitishyadav0.netlify.app/"
+  }
+  </script>
+
+  <!-- ✅ Structured Data: Breadcrumb -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [{
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://nitishyadav0.netlify.app/"
+    }]
+  }
+  </script>
+
+  <!-- ✅ Structured Data: FAQ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [{
+      "@type": "Question",
+      "name": "Who is Nitish Kumar Yadav?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Nitish Kumar Yadav is a Full Stack Developer specializing in React.js and Node.js."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What technologies does he use?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "He works with React.js, Node.js, MongoDB, and modern web technologies."
+      }
+    }]
+  }
+  </script>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-JQY5WF5Y2V"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-JQY5WF5Y2V');
+  </script>
+
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.tsx"></script>
+</body>
 </html>

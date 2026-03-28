@@ -1,4 +1,4 @@
-import styled, { keyframes } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 
 // --- Keep your original animations ---
 const slideInLeft = keyframes` to { opacity: 1; transform: translateX(0); } `;
@@ -27,6 +27,49 @@ const glowSpin = keyframes`
   from { filter: hue-rotate(0deg) brightness(1); }
   to { filter: hue-rotate(360deg) brightness(1.2); }
 `;
+
+const driftCenter = keyframes`
+  0%, 100% { transform: translate(-50%, -50%) translateZ(60px) scale(1); }
+  50% { transform: translate(-50%, calc(-50% - 10px)) translateZ(78px) scale(1.02); }
+`;
+
+const imageReveal = keyframes`
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) translateZ(20px) scale(0.92);
+    filter: blur(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) translateZ(60px) scale(1);
+    filter: blur(0);
+  }
+`;
+
+const imageGlowPulse = keyframes`
+  0%, 100% { box-shadow: 0 18px 40px rgba(0, 0, 0, 0.3); }
+  50% { box-shadow: 0 24px 52px rgba(255, 87, 51, 0.18); }
+`;
+
+const heroImageVariantStyles = {
+  center: css`
+    left: 50%;
+    top: 50%;
+    width: 80%;
+    height: 80%;
+    transform: translate(-50%, -50%) translateZ(60px);
+    animation: ${imageReveal} 0.8s ease-out,
+      ${driftCenter} 5.2s ease-in-out 0.8s infinite,
+      ${imageGlowPulse} 3.8s ease-in-out infinite;
+    z-index: 4;
+  `,
+};
+
+const heroImageHoverStyles = {
+  center: css`
+    transform: translate(-50%, calc(-50% - 12px)) translateZ(92px) scale(1.05);
+  `,
+};
 
 // --- New 3D BG Components ---
 export const KeyboardBG = styled.div`
@@ -378,25 +421,28 @@ export const SocialLink = styled.a`
 `;
 
 export const ImageBox = styled.div`
-  width: clamp(240px, 32vw, 340px);
-  height: clamp(240px, 32vw, 340px);
-  border-radius: 50%;
+  width: clamp(360px, 46vw, 520px);
+  height: clamp(360px, 46vw, 520px);
   position: relative;
-  padding: 15px;
+  padding: 12px;
   margin: 15px;
+  cursor: pointer;
   perspective: 1200px;
   transform-style: preserve-3d;
-  background: linear-gradient(135deg, rgba(255, 87, 51, 0.15), rgba(255, 142, 83, 0.1));
-  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 50% 35%, rgba(255, 167, 38, 0.2), transparent 34%),
+    radial-gradient(circle at 50% 50%, rgba(255, 87, 51, 0.1), transparent 65%);
+  box-shadow: 0 36px 70px rgba(0, 0, 0, 0.55);
   
   /* Upgraded Animation */
   animation: ${float3D} 6s ease-in-out infinite;
   transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   
   &:hover {
-    transform: rotateY(15deg) rotateX(10deg) scale(1.08);
+    transform: rotateY(10deg) rotateX(8deg) scale(1.04);
     animation-play-state: paused;
-    box-shadow: 0 50px 100px rgba(255, 87, 51, 0.2);
+    box-shadow: 0 44px 90px rgba(255, 87, 51, 0.18);
   }
 
   &::after {
@@ -404,14 +450,14 @@ export const ImageBox = styled.div`
     position: absolute;
     inset: 0;
     border-radius: 50%;
-    box-shadow: inset 0 0 20px rgba(255, 87, 51, 0.5);
+    box-shadow: inset 0 0 28px rgba(255, 87, 51, 0.28);
     animation: ${glowSpin} 10s linear infinite;
   }
 `;
 
 export const ImageRing = styled.div`
   position: absolute;
-  inset: -8px;
+  inset: -10px;
   border-radius: 50%;
   background: conic-gradient(from 0deg, #ff5733, #ff8e53, transparent, #ff5733);
   
@@ -424,16 +470,37 @@ export const ImageRing = styled.div`
   opacity: 0.6;
   filter: blur(2px);
   pointer-events: none;
+  transition: filter 0.5s ease, opacity 0.5s ease;
 `;
 
-export const HeroImage = styled.img`
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  border-radius:50%;
-  transform: translateZ(60px);
-  transition: transform 0.6s ease;
-  ${ImageBox}:hover & { transform: translateZ(80px) scale(1.03); }
+export const HeroImage = styled.img.withConfig({
+  shouldForwardProp: (prop) => prop !== "variant",
+})`
+  position: absolute;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 0 20px 42px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  transition: transform 0.6s ease, box-shadow 0.6s ease, filter 0.6s ease,
+    border-color 0.6s ease, opacity 0.6s ease;
+  ${(props) => heroImageVariantStyles[props.variant || "center"]}
+
+  &:hover {
+    border-color: rgba(255, 255, 255, 0.36);
+    filter: saturate(1.1) brightness(1.06);
+  }
+
+  ${ImageBox}:hover & {
+    box-shadow: 0 30px 60px rgba(255, 87, 51, 0.22);
+    filter: saturate(1.08) brightness(1.05);
+    ${(props) => heroImageHoverStyles[props.variant || "center"]}
+  }
+
+  @media (max-width: 768px) {
+    width: 84%;
+    height: 84%;
+  }
 `;
 
 export const HeroStats = styled.div` display:flex; gap:2rem; `;
