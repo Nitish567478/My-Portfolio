@@ -45,20 +45,23 @@ const achievementsData = [
   { title: "Algorithm Expert", number: 300 },
 ];
 
-const certificateFiles = import.meta.glob("../../assets/certificates/*.{jpeg,jpg,png}", { eager: true, as: "url" });
+const externalCertificates = [
+  { id: "uiux.jpg", url: "https://i.ibb.co/q3nMZKqK/uiux.jpg", name: "uiux.jpg", type: "image", description: "Image certificate" },
+  { id: "sql.png", url: "https://i.ibb.co/MDhvb4rW/sql.png", name: "sql.png", type: "image", description: "Image certificate" },
+  { id: "robo.jpg", url: "https://i.ibb.co/t127d24/robo.jpg", name: "robo.jpg", type: "image", description: "Image certificate" },
+  { id: "python.png", url: "https://i.ibb.co/mWB8VGv/python.png", name: "python.png", type: "image", description: "Image certificate" },
+  { id: "participation.jpg", url: "https://i.ibb.co/fVDwVFmm/participation.jpg", name: "participation.jpg", type: "image", description: "Image certificate" },
+  { id: "Participate-UIUX.jpg", url: "https://i.ibb.co/wFLBYww9/Participate-UIUX.jpg", name: "Participate-UIUX.jpg", type: "image", description: "Image certificate" },
+  { id: "NHAI.jpg", url: "https://i.ibb.co/3mFNXMkj/NHAI.jpg", name: "NHAI.jpg", type: "image", description: "Image certificate" },
+  { id: "javascript.png", url: "https://i.ibb.co/8LZ9LKx8/javascript.png", name: "javascript.png", type: "image", description: "Image certificate" },
+  { id: "html.png", url: "https://i.ibb.co/0V83YY2F/html.png", name: "html.png", type: "image", description: "Image certificate" },
+  { id: "git.png", url: "https://i.ibb.co/vxTyVpY3/git.png", name: "git.png", type: "image", description: "Image certificate" },
+  { id: "flexbox.png", url: "https://i.ibb.co/ymB1Qrn6/flexbox.png", name: "flexbox.png", type: "image", description: "Image certificate" },
+  { id: "bootstrap.png", url: "https://i.ibb.co/RTB6CrTD/bootstrap.png", name: "bootstrap.png", type: "image", description: "Image certificate" }
+];
 
-const allCertificates = Object.entries(certificateFiles)
-  .map(([path, url]) => {
-    const fileName = path.split("/").pop();
-    return {
-      id: fileName,
-      url,
-      name: fileName,
-      type: "image",
-      description: "Image certificate"
-    };
-  })
-  .sort((a, b) => a.name.localeCompare(b.name));
+const allCertificates = externalCertificates.sort((a, b) => a.name.localeCompare(b.name));
+
 
 const cardData = allCertificates.slice(0, 4);
 
