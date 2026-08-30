@@ -1,21 +1,41 @@
 import { DefaultTheme } from 'styled-components';
 
-export const lightTheme: DefaultTheme = {
-  background: "#a04848",
-  text: "#ffffff",
-  navBg: "rgba(255,255,255,0.95)",
+export const darkTheme: DefaultTheme = {
+  background: "#08090d",
+  backgroundAlt: "#0e111a",
+  surface: "rgba(18, 22, 34, 0.75)",
+  surfaceHover: "rgba(28, 34, 52, 0.85)",
+  border: "rgba(255, 255, 255, 0.08)",
+  borderHighlight: "rgba(255, 87, 51, 0.5)",
+  text: "#f8fafc",
+  textSecondary: "#94a3b8",
+  textMuted: "#64748b",
+  navBg: "rgba(8, 9, 13, 0.85)",
   accent: "#ff5733",
-  accentSoft: "rgba(255,87,51,0.3)",
-  gradient: "linear-gradient(135deg, #ff5733, #ff8e53, #ffa726)",
-  shadow: "0 4px 20px rgba(0,0,0,0.1)"
+  accentHover: "#ff7043",
+  accentSoft: "rgba(255, 87, 51, 0.15)",
+  gradient: "linear-gradient(135deg, #ff5733 0%, #ff8e53 50%, #ffa726 100%)",
+  gradientSecondary: "linear-gradient(135deg, #6366f1 0%, #a855f7 50%, #ec4899 100%)",
+  shadow: "0 20px 40px -15px rgba(0, 0, 0, 0.6)",
+  glow: "0 0 25px rgba(255, 87, 51, 0.35)",
 };
 
-export const darkTheme: DefaultTheme = {
-  background: "#242323",
-  text: "#ffffff",
-  navBg: "rgba(13,13,13,0.95)",
+export const lightTheme: DefaultTheme = {
+  background: "#ffffff",
+  backgroundAlt: "#f8fafc",
+  surface: "rgba(255, 255, 255, 0.95)",
+  surfaceHover: "#f1f5f9",
+  border: "rgba(15, 23, 42, 0.1)",
+  borderHighlight: "rgba(255, 87, 51, 0.7)",
+  text: "#090d16",
+  textSecondary: "#334155",
+  textMuted: "#64748b",
+  navBg: "rgba(255, 255, 255, 0.92)",
   accent: "#ff5733",
-  accentSoft: "rgba(255,87,51,0.3)",
-  gradient: "linear-gradient(135deg, #ff5733, #ff8e53, #ffa726)",
-  shadow: "0 4px 20px rgba(0,0,0,0.3)"
+  accentHover: "#e64a19",
+  accentSoft: "rgba(255, 87, 51, 0.12)",
+  gradient: "linear-gradient(135deg, #ff5733 0%, #ff8e53 50%, #ffa726 100%)",
+  gradientSecondary: "linear-gradient(135deg, #4f46e5 0%, #9333ea 50%, #db2777 100%)",
+  shadow: "0 15px 35px -10px rgba(0, 0, 0, 0.08)",
+  glow: "0 0 25px rgba(255, 87, 51, 0.2)",
 };

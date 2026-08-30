@@ -1,0 +1,5 @@
+# Robots.txt for Nitish Kumar Yadav Portfolio
+User-agent: *
+Allow: /
+
+Sitemap: https://nitishyadav0.netlify.app/sitemap.xml

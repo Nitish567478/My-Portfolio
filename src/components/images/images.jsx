@@ -12,7 +12,7 @@ import dbms from "../../assets/dbms.png";
 import mongodb from "../../assets/mongodb.png"; 
 import express from "../../assets/express.webp";
 
-{/* project images */}
+{/* Project Images */}
 import wiki from '../../assets/wiki.png';
 import task from '../../assets/task.png';
 import school from '../../assets/school.png';
@@ -20,8 +20,15 @@ import counter from '../../assets/counter.png';
 import feedback from '../../assets/feedback.png';
 import canvas from '../../assets/canvas.png';
 import chat from '../../assets/chat.png';
+import barber from '../../assets/barber.avif';
+import milkhub from '../../assets/milkhub.jpg';
+import recipe from '../../assets/recipe.jpg';
+import prompts from '../../assets/prompts.jpg';
+import testcase from '../../assets/testcase.jpg';
+import interview from '../../assets/interview.jpg';
+import resume from '../../assets/resume.jpg';
+import webmaker from '../../assets/webmaker.jpg';
 
-import barber from '../../assets/barber.avif'
 const images = {
   html,
   css,
@@ -44,7 +51,14 @@ const images = {
   feedback,
   canvas,
   chat,
-  barber
+  barber,
+  milkhub,
+  recipe,
+  prompts,
+  testcase,
+  interview,
+  resume,
+  webmaker
 };
 
 export default images;

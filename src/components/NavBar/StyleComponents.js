@@ -1,306 +1,245 @@
-import styled, { keyframes } from "styled-components";
+import styled from "styled-components";
 
-const slideDown = keyframes`
-  from { opacity: 0; transform: translateY(-20px); }
-  to { opacity: 1; transform: translateY(0); }
-`;
-
-const staggerIn = keyframes`
-  from { opacity: 0; transform: translateX(30px); }
-  to { opacity: 1; transform: translateX(0); }
-`;
-
-export const Nav = styled.nav`
-  width: 100%;
-  background: var(--bg);
-  color: var(--text);
-  backdrop-filter: blur(25px);
-  padding: 15px 0;
-  position: sticky;
+export const Nav = styled.header`
+  position: fixed;
   top: 0;
-  z-index: 1000;
-  border-bottom: 1px solid ${({ theme }) => theme.accentSoft};
-  transition: all 0.4s ease;
-  animation: ${slideDown} 0.8s ease-out;
-  box-shadow: ${({ theme }) => theme.shadow};
+  left: 0;
+  width: 100%;
+  z-index: 9999;
+  padding: ${({ $scrolled }) => ($scrolled ? "10px 0" : "18px 0")};
+  background: ${({ $scrolled, theme }) =>
+    $scrolled ? theme.navBg : "transparent"};
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid
+    ${({ $scrolled, theme }) => ($scrolled ? theme.border : "transparent")};
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: ${({ $scrolled, theme }) => ($scrolled ? theme.shadow : "none")};
 `;
 
 export const NavContainer = styled.div`
-  width: 90%;
-  max-width: 1200px;
-  margin: auto;
+  max-width: 1680px;
+  width: 95%;
+  margin: 0 auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: relative;
-  padding: 0 20px;
+  padding: 0 10px;
+  box-sizing: border-box;
 `;
 
-export const Logo = styled.div`
-  color: #ffffff;
-  font-size: clamp(1.4rem, 2.5vw, 2rem);
+export const Logo = styled.a`
+  font-size: 1.35rem;
   font-weight: 900;
-  letter-spacing: -0.05em;
-  padding: 12px 20px;
-  background: linear-gradient(135deg, #ff5733, #ff8e53, #ffa726);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  border: 2px solid rgba(255, 87, 51, 0.4);
-  border-radius: 12px;
+  letter-spacing: -0.5px;
+  color: ${({ theme }) => theme.text};
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 2px;
   cursor: pointer;
-  position: relative;
-  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(255, 87, 51, 0.15);
-    border-radius: 12px;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    z-index: -1;
-  }
+  transition: transform 0.2s ease;
 
   &:hover {
-    transform: scale(1.1) rotate(2deg);
-    border-color: #ff5733;
-    text-shadow: 0 0 25px rgba(255, 87, 51, 0.6);
-    &::before {
-      opacity: 1;
-    }
+    transform: scale(1.04);
   }
+`;
 
-  @media (max-width: 480px) {
-    font-size: 1.6rem;
-    padding: 10px 16px;
-  }
+export const LogoAccent = styled.span`
+  background: ${({ theme }) => theme.gradient};
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 800;
 `;
 
 export const NavMenu = styled.ul`
-  list-style: none;
   display: flex;
-  gap: 2rem;
+  list-style: none;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 6px;
   margin: 0;
-  padding: 0;
+  background: ${({ theme }) => theme.surface};
+  border: 1px solid ${({ theme }) => theme.border};
+  border-radius: 999px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
 
-  @media (max-width: 768px) {
-    position: fixed;
-    top: 70px;
-    left: 0;
-    right: 0;
-    background: rgba(13, 13, 13, 0.98);
-    backdrop-filter: blur(30px);
-    width: 100%;
-    flex-direction: column;
-    gap: 1rem;
-    text-align: center;
-    padding: 2rem 0;
-    border-top: 2px solid rgba(255, 87, 51, 0.4);
-    transform: translateY(-20px);
-    opacity: 0;
-    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-
-    max-height: calc(100vh - 70px);
-    overflow-y: auto;
-    overflow-x: hidden;
-
-    &::-webkit-scrollbar {
-      width: 8px;
-    }
-
-    &::-webkit-scrollbar-track {
-      background: #111827;
-      border-radius: 10px;
-    }
-
-    &::-webkit-scrollbar-thumb {
-      background: linear-gradient(180deg, #60a5fa, #a78bfa, #fb7185);
-      border-radius: 10px;
-    }
-
-    &::-webkit-scrollbar-thumb:hover {
-      background: linear-gradient(180deg, #3b82f6, #8b5cf6, #f43f5e);
-    }
-
-    ${(props) =>
-      props.$isOpen
-        ? `
-      display: flex;
-      transform: translateY(0);
-      opacity: 1;
-    `
-        : `
-      display: none;
-    `}
-  }
-
-  @media (max-width: 480px) {
-    gap: 1.5rem;
-    padding: 3rem 1rem;
+  @media (max-width: 860px) {
+    display: none;
   }
 `;
 
-
 export const NavItem = styled.li`
-  opacity: 0;
-  transform: translateX(20px);
-  animation: ${staggerIn} 0.6s forwards;
-  
-  @media (max-width: 768px) {
-    animation-delay: ${({ $index }) => $index * 0.1}s;
-  }
+  margin: 0;
+  display: flex;
+  align-items: center;
 `;
 
 export const NavLink = styled.a`
-  color: rgba(255, 255, 255, 0.95) !important;
-  text-decoration: none !important;
-  font-size: clamp(1rem, 1.2vw, 1.1rem);
-  font-weight: 700;
-  padding: 12px 24px;
-  border-radius: 25px;
-  transition: color 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  position: relative;
-  letter-spacing: 0.5px;
-  display: block;
-  backdrop-filter: blur(15px);
-
-  &::before {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    width: 0;
-    height: 3px;
-    background: linear-gradient(90deg, #ff5733, #ff8e53);
-    border-radius: 2px;
-    transition: width 0.4s ease;
-    transform: translateX(-50%);
-  }
+  display: inline-block;
+  padding: 8px 18px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  border-radius: 999px;
+  color: ${({ $isActive, theme }) =>
+    $isActive ? "#ffffff" : theme.textSecondary};
+  background: ${({ $isActive, theme }) =>
+    $isActive ? theme.gradient : "transparent"};
+  text-decoration: none;
+  box-shadow: ${({ $isActive }) =>
+    $isActive ? "0 4px 15px rgba(255, 87, 51, 0.4)" : "none"};
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
 
   &:hover {
-    color: #ffffff !important;
-  }
-
-  &:hover::before {
-    width: 85%;
-  }
-
-  @media (max-width: 768px) {
-    font-size: 1.6rem;
-    padding: 1.4rem 2.5rem;
-    width: 85%;
-    max-width: 350px;
-    margin: 0 auto 0.5rem;
-    border-radius: 20px;
+    color: ${({ $isActive, theme }) =>
+      $isActive ? "#ffffff" : theme.text};
+    background: ${({ $isActive, theme }) =>
+      $isActive ? theme.gradient : theme.surfaceHover};
+    transform: translateY(-1px);
   }
 `;
 
+export const RightActions = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+`;
 
-export const ToggleButton = styled.div`
-  display: none;
-  flex-direction: column;
-  cursor: pointer;
+export const ResumeNavButton = styled.a`
+  display: inline-flex;
+  align-items: center;
   gap: 6px;
-  padding: 8px;
+  padding: 8px 18px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #ffffff;
+  background: ${({ theme }) => theme.gradient};
+  border-radius: 999px;
+  text-decoration: none;
+  box-shadow: 0 4px 15px rgba(255, 87, 51, 0.35);
+  transition: all 0.25s ease;
 
-  @media (max-width: 768px) {
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255, 87, 51, 0.5);
+  }
+
+  @media (max-width: 580px) {
+    display: none;
+  }
+`;
+
+export const ThemeToggleButton = styled.button`
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: ${({ theme }) => theme.surface};
+  border: 1px solid ${({ theme }) => theme.border};
+  color: ${({ theme }) => theme.text};
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.25s ease;
+
+  &:hover {
+    background: ${({ theme }) => theme.surfaceHover};
+    border-color: ${({ theme }) => theme.borderHighlight};
+    color: ${({ theme }) => theme.accent};
+    transform: rotate(15deg) scale(1.05);
+  }
+`;
+
+export const MobileMenuButton = styled.button`
+  display: none;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: ${({ theme }) => theme.surface};
+  border: 1px solid ${({ theme }) => theme.border};
+  color: ${({ theme }) => theme.text};
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  @media (max-width: 860px) {
     display: flex;
   }
 `;
 
-export const ToggleLine = styled.span`
-  width: 28px;
-  height: 3px;
-  background: linear-gradient(90deg, #ff5733, #ff8e53);
-  border-radius: 3px;
-  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  transform-origin: center;
-  box-shadow: 0 2px 8px rgba(255, 87, 51, 0.4);
-
-  /* Line 1 */
-  &:nth-child(1) {
-    transform: ${(props) =>
-      props.$isOpen ? "rotate(45deg) translate(6px, 6px)" : "none"};
-  }
-
-  /* Line 2 */
-  &:nth-child(2) {
-    opacity: ${(props) => (props.$isOpen ? "0" : "1")};
-    transform: ${(props) => (props.$isOpen ? "scale(0)" : "none")};
-  }
-
-  /* Line 3 */
-  &:nth-child(3) {
-    transform: ${(props) =>
-      props.$isOpen ? "rotate(-45deg) translate(7px, -7px)" : "none"};
-  }
+export const DrawerOverlay = styled.div`
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 10500;
 `;
 
-export const ThemeToggle = styled.button`
-  width: 70px;
-  height: 34px;
-  background: ${({ darkMode }) =>
-    darkMode ? "#a04848" : "#0d0d0d"};
-  border: none;
-  border-radius: 50px;
-  cursor: pointer;
-  position: relative;
-  transition: all 0.3s ease;
-  padding: 0;
-  outline: none;
-
+export const MobileDrawer = styled.div`
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: min(85vw, 340px);
+  height: 100vh;
+  background: ${({ theme }) => theme.backgroundAlt};
+  border-left: 1px solid ${({ theme }) => theme.border};
+  z-index: 11000;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  padding: 24px;
+  transform: ${({ $isOpen }) =>
+    $isOpen ? "translateX(0)" : "translateX(100%)"};
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: -10px 0 30px rgba(0, 0, 0, 0.6);
 
-  &::before {
-    content: "${({ darkMode }) => (darkMode ? "" : "")}";
-    position: absolute;
-    left: 10px;
-    font-size: 10px;
-    font-weight: 700;
-    color: white;
-    letter-spacing: 1px;
+  .drawer-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid ${({ theme }) => theme.border};
   }
 
-  &::after {
-    content: "";
-    position: absolute;
-    top: 4px;
-    left: ${({ darkMode }) => (darkMode ? "38px" : "4px")};
-    width: 26px;
-    height: 26px;
-    background: white;
-    border-radius: 50%;
-    transition: all 0.3s ease;
+  .close-btn {
+    background: transparent;
+    border: none;
+    color: ${({ theme }) => theme.text};
+    cursor: pointer;
   }
 
-  &:active {
-    transform: scale(0.95);
+  .drawer-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+
+    li a {
+      display: block;
+      padding: 12px 18px;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: ${({ theme }) => theme.textSecondary};
+      border-radius: 12px;
+      transition: all 0.2s ease;
+
+      &.active, &:hover {
+        background: ${({ theme }) => theme.surface};
+        color: ${({ theme }) => theme.accent};
+      }
+    }
+  }
+
+  .drawer-footer {
+    padding-top: 20px;
+    border-top: 1px solid ${({ theme }) => theme.border};
   }
 `;
-
-
-export const lightTheme = {
-  background: "#ffffff",
-  text: "#111111",
-  navBg: "rgba(255,255,255,0.95)",
-  accent: "#ff5733",
-  accentSoft: "rgba(255,87,51,0.3)",
-  gradient: "linear-gradient(135deg, #ff5733, #ff8e53, #ffa726)",
-  shadow: "0 4px 20px rgba(0,0,0,0.1)"
-};
-
-export const darkTheme = {
-  background: "#0d0d0d",
-  text: "#ffffff",
-  navBg: "rgba(13,13,13,0.95)",
-  accent: "#ff5733",
-  accentSoft: "rgba(255,87,51,0.3)",
-  gradient: "linear-gradient(135deg, #ff5733, #ff8e53, #ffa726)",
-  shadow: "0 4px 20px rgba(0,0,0,0.3)"
-};

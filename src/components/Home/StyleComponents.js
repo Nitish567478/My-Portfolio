@@ -1,509 +1,394 @@
-import styled, { css, keyframes } from "styled-components";
+import styled, { keyframes } from "styled-components";
 
-// --- Keep your original animations ---
-const slideInLeft = keyframes` to { opacity: 1; transform: translateX(0); } `;
-const slideInRight = keyframes` to { opacity: 1; transform: translateX(0); } `;
-const fadeUp = keyframes` to { opacity: 1; transform: translateY(0); } `;
-const blink = keyframes` 0%,50% { opacity: 1; } 51%,100% { opacity: 0; } `;
-const pulse = keyframes` 0%,100% { transform: scale(1); } 50% { transform: scale(1.1); } `;
-const expand = keyframes` to { transform: scaleX(1); } `;
-const float = keyframes` 0%,100% { transform: translateY(0px) rotate(0deg); } 50% { transform: translateY(-12px) rotate(2deg); } `;
-const rotateRing = keyframes` 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } `;
-const underlineExpand = keyframes` 0%,100% { width: 0; } 50% { width: 100%; } `;
-const glowPulse = keyframes` 0%,100% { opacity:0; transform:scale(1); box-shadow:0 0 4px rgba(255,87,51,0.6); } 50% { opacity:1; transform:scale(1.2); box-shadow:0 0 12px rgba(255,87,51,0.8); } `;
-
-
-const float3D = keyframes`
-  0%, 100% { transform: translateY(0px) rotateX(0deg) rotateY(0deg); }
-  50% { transform: translateY(-20px) rotateX(10deg) rotateY(5deg); }
+const pulseAnimation = keyframes`
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
 `;
 
-const ringPulse = keyframes`
-  0%, 100% { transform: translateZ(-40px) scale(1); opacity: 0.6; }
-  50% { transform: translateZ(-60px) scale(1.15); opacity: 0.3; }
+const blinkCursor = keyframes`
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
 `;
 
-const glowSpin = keyframes`
-  from { filter: hue-rotate(0deg) brightness(1); }
-  to { filter: hue-rotate(360deg) brightness(1.2); }
+const spinGlow = keyframes`
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 `;
 
-const driftCenter = keyframes`
-  0%, 100% { transform: translate(-50%, -50%) translateZ(60px) scale(1); }
-  50% { transform: translate(-50%, calc(-50% - 10px)) translateZ(78px) scale(1.02); }
+const floatBadge = keyframes`
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
 `;
 
-const imageReveal = keyframes`
-  0% {
-    opacity: 0;
-    transform: translate(-50%, -50%) translateZ(20px) scale(0.92);
-    filter: blur(10px);
-  }
-  100% {
-    opacity: 1;
-    transform: translate(-50%, -50%) translateZ(60px) scale(1);
-    filter: blur(0);
-  }
-`;
-
-const imageGlowPulse = keyframes`
-  0%, 100% { box-shadow: 0 18px 40px rgba(0, 0, 0, 0.3); }
-  50% { box-shadow: 0 24px 52px rgba(255, 87, 51, 0.18); }
-`;
-
-const heroImageVariantStyles = {
-  center: css`
-    left: 50%;
-    top: 50%;
-    width: 80%;
-    height: 80%;
-    transform: translate(-50%, -50%) translateZ(60px);
-    animation: ${imageReveal} 0.8s ease-out,
-      ${driftCenter} 5.2s ease-in-out 0.8s infinite,
-      ${imageGlowPulse} 3.8s ease-in-out infinite;
-    z-index: 4;
-  `,
-};
-
-const heroImageHoverStyles = {
-  center: css`
-    transform: translate(-50%, calc(-50% - 12px)) translateZ(92px) scale(1.05);
-  `,
-};
-
-// --- New 3D BG Components ---
-export const KeyboardBG = styled.div`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 150vw;
-  height: 120vh;
-  display: grid;
-  grid-template-columns: repeat(20, 1fr);
-  gap: 12px;
-  transform: translate(-50%, -30%) rotateX(65deg) rotateZ(-15deg);
-  z-index: 1;
-  pointer-events: none;
-  opacity: 0.5;
-`;
-
-export const Key = styled.div.attrs(props => ({
-  style: {
-    transform: `translateZ(${props.isPressed ? '-20px' : '0px'})`,
-    background: props.isPressed 
-      ? 'linear-gradient(135deg, #ff5733, #ff8e53)' 
-      : 'rgba(255, 255, 255, 0.03)',
-    boxShadow: props.isPressed 
-      ? '0 0 20px rgba(255, 87, 51, 0.5)' 
-      : '0 4px 0 rgba(0,0,0,0.2)',
-  }
-}))`
-  width: 100%;
-  aspect-ratio: 1;
-  border-radius: 4px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  transition: transform 0.1s ease-out;
-`;
- 
 export const Section = styled.section`
   min-height: 100vh;
-  background: var(--bg, #0a0a0a);
-  color: var(--text, #fff);
+  width: 100%;
   position: relative;
-  overflow: hidden;
-  perspective: 1200px; /* Added for 3D effect */
-`;
-
-export const Hero = styled.div`
-  min-height: 100vh;
-  max-width: 1200px;
-  margin: 0 auto;
   display: flex;
   align-items: center;
-  padding: 0 20px;
-  position: relative;
-  z-index: 2;
+  padding: 100px 30px 60px;
+  overflow: hidden;
+  box-sizing: border-box;
+`;
+
+export const BackgroundGlow = styled.div`
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 15%;
+    left: 5%;
+    width: 550px;
+    height: 550px;
+    background: radial-gradient(circle, rgba(255, 87, 51, 0.18) 0%, rgba(255, 142, 83, 0.04) 50%, transparent 70%);
+    filter: blur(90px);
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 15%;
+    right: 5%;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(99, 102, 241, 0.14) 0%, rgba(168, 85, 247, 0.03) 50%, transparent 70%);
+    filter: blur(90px);
+  }
+`;
+
+export const HeroContainer = styled.div`
+  max-width: 1680px;
+  width: 95%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.25fr 0.95fr;
   gap: 4rem;
-  @media (max-width:768px){ flex-direction: column; text-align:center; gap:3rem; }
+  align-items: center;
+  position: relative;
+  z-index: 1;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 3.5rem;
+  }
 `;
 
 export const HeroLeft = styled.div`
-  flex:1;
-  max-width:600px;
-  opacity:0;
-  transform: translateX(-50px);
-  animation:${slideInLeft} 1s cubic-bezier(0.25,0.46,0.45,0.94) 0.3s forwards;
-  @media (max-width:768px){ order:2; }
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+
+  @media (max-width: 1024px) {
+    align-items: center;
+  }
 `;
 
 export const HeroRight = styled.div`
-  flex:1;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:2rem;
-  opacity:0;
-  transform: translateX(50px);
-  animation:${slideInRight} 1s cubic-bezier(0.25,0.46,0.45,0.94) 0.5s forwards;
-  @media (max-width:768px){ order:1; }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const AvailabilityBadge = styled.div`
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  background: rgba(34, 197, 94, 0.1);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #22c55e;
+  margin-bottom: 24px;
+
+  .pulse-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #22c55e;
+    box-shadow: 0 0 8px #22c55e;
+    animation: ${pulseAnimation} 2s infinite;
+  }
 `;
 
 export const HeroTitle = styled.h1`
-  font-size: clamp(2.8rem,5vw,4.2rem);
-  font-weight:800;
-  margin-bottom:1.2rem;
-  line-height:1.1;
-  background: linear-gradient(135deg,#ffffff 0%,#f0f0f0 100%);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
+  font-size: clamp(2.8rem, 5.5vw, 4.8rem);
+  font-weight: 900;
+  line-height: 1.08;
+  color: ${({ theme }) => theme.text};
+  margin-bottom: 14px;
+  letter-spacing: -0.025em;
 `;
 
 export const HeroName = styled.span`
-  background: linear-gradient(135deg,#ff5733,#ff8e53,#ffa726);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-  position:relative;
-  &::after{
-    content:"";
-    position:absolute;
-    bottom:-8px;
-    left:0;
-    width:50px;
-    height:3px;
-    background:linear-gradient(90deg,#ff5733,#ff8e53);
-    border-radius:2px;
-    animation:${expand} 0.8s ease-out 1s forwards;
-    transform:scaleX(0);
-  }
+  background: ${({ theme }) => theme.gradient};
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
 `;
 
-export const HeroRole = styled.h2`
-  font-size: clamp(1.6rem,3.5vw,2.5rem);
-  font-weight:400;
-  margin-bottom:1.8rem;
-  color:rgba(255,255,255,0.9);
-  min-height:3rem;
-  display:flex;
-  align-items:center;
+export const HeroRoleWrapper = styled.div`
+  font-size: clamp(1.6rem, 3.2vw, 2.4rem);
+  font-weight: 700;
+  margin-bottom: 22px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  min-height: 2.8rem;
 `;
 
-export const StrongText = styled.strong`
-  background: linear-gradient(135deg,#ff5733,#ff8e53,#ffa726);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-  font-weight:700;
-  position:relative;
-  margin-left:10px;
-  &::before{
-    content:"";
-    position:absolute;
-    bottom:-4px;
-    left:0;
-    width:0;
-    height:2px;
-    background:linear-gradient(90deg,#ff5733,#ff8e53);
-    border-radius:1px;
-    animation:${underlineExpand} 2s ease-in-out infinite;
-  }
+export const RolePrefix = styled.span`
+  color: ${({ theme }) => theme.textSecondary};
+  margin-right: 8px;
 `;
 
-export const Cursor = styled.span`
-  width:3px;
-  height:2.8rem;
-  background: linear-gradient(to bottom,#ff5733,#ff8e53);
-  margin-left:6px;
-  border-radius:2px;
-  animation:${blink} 1.2s infinite, ${pulse} 2s infinite;
-  box-shadow:0 0 6px rgba(255,87,51,0.5);
+export const TypewriterText = styled.span`
+  background: ${({ theme }) => theme.gradient};
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+`;
+
+export const CursorBlink = styled.span`
+  display: inline-block;
+  width: 3px;
+  height: 2rem;
+  background: ${({ theme }) => theme.accent};
+  margin-left: 6px;
+  border-radius: 2px;
+  animation: ${blinkCursor} 1s infinite;
 `;
 
 export const HeroDescription = styled.p`
-  font-size: 1.3rem;
-  line-height: 1.8;
-  color: rgba(255,255,255,0.8);
-  margin-bottom: 3rem;
-  max-width: 550px;
-  opacity: 0;
-  transform: translateY(20px);
-  animation:${fadeUp} 1s cubic-bezier(0.25,0.46,0.45,0.94) 0.8s forwards;
+  font-size: 1.15rem;
+  line-height: 1.75;
+  color: ${({ theme }) => theme.textSecondary};
+  margin-bottom: 36px;
+  max-width: 680px;
 `;
 
 export const HeroButtons = styled.div`
-  display:flex;
-  gap:1.2rem;
-  flex-wrap:wrap;
-  opacity:0;
-  transform:translateY(30px);
-  animation:${fadeUp} 1s cubic-bezier(0.25,0.46,0.45,0.94) 1.2s forwards;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 28px;
+
+  @media (max-width: 960px) {
+    justify-content: center;
+  }
 `;
 
-export const Button = styled.a`
+const buttonBase = `
   display: inline-flex;
   align-items: center;
-  gap: 10px;
-  padding: 1.1rem 2.2rem;
-  font-weight: 600;
-  border-radius: 50px;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  font-weight: 700;
   text-decoration: none;
-  font-size: 1rem;
-  position: relative;
-  overflow: hidden;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  font-family: inherit;
-  user-select: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+`;
 
-  /* Shimmer sweep effect */
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-      90deg, 
-      transparent 0%, 
-      rgba(255,255,255,0.4) 50%, 
-      transparent 100%
-    );
-    transition: left 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 1;
+export const PrimaryButton = styled.a`
+  ${buttonBase}
+  background: ${({ theme }) => theme.gradient};
+  color: #ffffff;
+  box-shadow: 0 8px 24px rgba(255, 87, 51, 0.35);
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(255, 87, 51, 0.55);
   }
+`;
 
-  &:hover::before {
-    left: 100%;
+export const SecondaryButton = styled.a`
+  ${buttonBase}
+  background: ${({ theme }) => theme.surface};
+  color: ${({ theme }) => theme.text};
+  border: 1px solid ${({ theme }) => theme.border};
+  backdrop-filter: blur(12px);
+
+  &:hover {
+    background: ${({ theme }) => theme.surfaceHover};
+    border-color: ${({ theme }) => theme.borderHighlight};
+    color: ${({ theme }) => theme.accent};
+    transform: translateY(-3px);
   }
+`;
 
-  /* Initial glow */
-  box-shadow: ${props => 
-    props.variant === 'primary' 
-      ? '0 10px 25px rgba(255,87,51,0.3)'
-      : props.variant === 'secondary'
-      ? '0 8px 20px rgba(0,0,0,0.1)'
-      : '0 8px 20px rgba(0,0,0,0.1)'
-  };
+export const OutlineButton = styled.a`
+  ${buttonBase}
+  background: transparent;
+  color: ${({ theme }) => theme.text};
+  border: 1px solid ${({ theme }) => theme.border};
 
-  ${props => {
-    switch (props.variant) {
-      case "primary":
-        return `
-          background: linear-gradient(135deg, #ff5733 0%, #ff8e53 50%, #ff6b3a 100%);
-          color: #fff;
-          border: none;
-
-          &:hover {
-            transform: translateY(-5px) scale(1.05);
-            background: linear-gradient(135deg, #ff8e53 0%, #ff5733 50%, #ff6b3a 100%);
-            box-shadow: 
-              0 25px 50px rgba(255,87,51,0.6),
-              0 0 35px rgba(255,87,51,0.4);
-          }
-        `;
-
-      case "secondary":
-        return `
-          background: rgba(255,255,255,0.12);
-          color: #fff;
-          border: 1px solid rgba(255,255,255,0.25);
-          backdrop-filter: blur(15px);
-
-          &:hover {
-            background: rgba(255,87,51,0.18);
-            border-color: rgba(255,87,51,0.6);
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 
-              0 20px 40px rgba(255,87,51,0.35),
-              0 0 25px rgba(255,87,51,0.2);
-          }
-        `;
-
-      case "outline":
-        return `
-          background: rgba(255,255,255,0.05);
-          color: #fff;
-          border: 2px solid rgba(255,255,255,0.4);
-          backdrop-filter: blur(10px);
-
-          &:hover {
-            background: linear-gradient(135deg, #ff5733 0%, #ff8e53 100%);
-            border-color: transparent;
-            color: #fff;
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 
-              0 20px 45px rgba(255,87,51,0.55),
-              0 0 30px rgba(255,87,51,0.35);
-          }
-        `;
-
-      default:
-        return "";
-    }
-  }}
-
-  /* Arrow slide animation */
-  &:hover span {
-    transform: translateX(8px);
+  &:hover {
+    background: ${({ theme }) => theme.accentSoft};
+    border-color: ${({ theme }) => theme.accent};
+    color: ${({ theme }) => theme.accent};
+    transform: translateY(-3px);
   }
+`;
 
-  /* Active state */
-  &:active {
-    transform: translateY(-2px) scale(1.02);
-    transition: all 0.2s ease;
+export const SocialRow = styled.div`
+  display: flex;
+  gap: 12px;
+  margin-bottom: 36px;
+`;
+
+export const SocialIconButton = styled.a`
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: ${({ theme }) => theme.surface};
+  border: 1px solid ${({ theme }) => theme.border};
+  color: ${({ theme }) => theme.textSecondary};
+  font-size: 1.15rem;
+  transition: all 0.25s ease;
+
+  &:hover {
+    background: ${({ theme }) => theme.accentSoft};
+    border-color: ${({ theme }) => theme.accent};
+    color: ${({ theme }) => theme.accent};
+    transform: translateY(-3px) scale(1.08);
+    box-shadow: 0 8px 20px rgba(255, 87, 51, 0.25);
   }
+`;
 
-  /* Ripple click effect */
-  &::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.4);
-    transform: translate(-50%, -50%);
-    transition: width 0.6s ease, height 0.6s ease;
-    z-index: 2;
-    pointer-events: none;
-  }
+export const HeroStatsRow = styled.div`
+  display: flex;
+  gap: 2.5rem;
+  padding-top: 24px;
+  border-top: 1px solid ${({ theme }) => theme.border};
+  width: 100%;
 
-  &:active::after {
-    width: 400px;
-    height: 400px;
-  }
-
-  /* Focus accessibility */
-  &:focus-visible {
-    outline: 2px solid rgba(255,87,51,0.8);
-    outline-offset: 2px;
-  }
-
-  /* Responsive */
-  @media (max-width: 768px) {
-    padding: 1rem 2rem;
-    font-size: 0.95rem;
-    width: 100%;
-    max-width: 320px;
+  @media (max-width: 960px) {
     justify-content: center;
+    gap: 2rem;
   }
 
   @media (max-width: 480px) {
-    padding: 0.9rem 1.5rem;
-    font-size: 0.9rem;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
   }
 `;
 
-
-export const HeroSocial = styled.div`
-  display:flex;
-  gap:1rem;
-  margin-top:2rem;
-  opacity:0;
-  transform:translateY(20px);
-  animation:${fadeUp} 1s cubic-bezier(0.25,0.46,0.45,0.94) 1.6s forwards;
+export const StatBox = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
-export const SocialLink = styled.a`
-  width:48px;
-  height:48px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  color:rgba(255,255,255,0.7);
-  border-radius:12px;
-  backdrop-filter:blur(10px);
-  border:1px solid rgba(255,255,255,0.1);
-  transition:all 0.3s ease;
-  &:hover { color: #ff5733; background: rgba(255,87,51,0.1); transform: translateY(-3px); box-shadow: 0 10px 25px rgba(255,87,51,0.3); }
+export const StatNumber = styled.span`
+  font-size: 1.6rem;
+  font-weight: 900;
+  background: ${({ theme }) => theme.gradient};
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 `;
 
-export const ImageBox = styled.div`
-  width: clamp(360px, 46vw, 520px);
-  height: clamp(360px, 46vw, 520px);
+export const StatLabel = styled.span`
+  font-size: 0.82rem;
+  color: ${({ theme }) => theme.textMuted};
+  font-weight: 500;
+`;
+
+export const ImageWrapper = styled.div`
   position: relative;
-  padding: 12px;
-  margin: 15px;
-  cursor: pointer;
-  perspective: 1200px;
-  transform-style: preserve-3d;
-  border-radius: 50%;
-  background:
-    radial-gradient(circle at 50% 35%, rgba(255, 167, 38, 0.2), transparent 34%),
-    radial-gradient(circle at 50% 50%, rgba(255, 87, 51, 0.1), transparent 65%);
-  box-shadow: 0 36px 70px rgba(0, 0, 0, 0.55);
-  
-  /* Upgraded Animation */
-  animation: ${float3D} 6s ease-in-out infinite;
-  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  
-  &:hover {
-    transform: rotateY(10deg) rotateX(8deg) scale(1.04);
-    animation-play-state: paused;
-    box-shadow: 0 44px 90px rgba(255, 87, 51, 0.18);
+  width: clamp(340px, 42vw, 540px);
+  height: clamp(340px, 42vw, 540px);
+  border-radius: 36px;
+  padding: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .hero-avatar {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 28px;
+    position: relative;
+    z-index: 2;
+    box-shadow: ${({ theme }) => theme.shadow};
+    border: 1px solid ${({ theme }) => theme.border};
   }
 
-  &::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: 50%;
-    box-shadow: inset 0 0 28px rgba(255, 87, 51, 0.28);
-    animation: ${glowSpin} 10s linear infinite;
+  .badge-top-left {
+    top: -15px;
+    left: -20px;
+    animation: ${floatBadge} 4s ease-in-out infinite;
+
+    @media (max-width: 480px) {
+      left: 0;
+    }
+  }
+
+  .badge-bottom-right {
+    bottom: -15px;
+    right: -20px;
+    animation: ${floatBadge} 4s ease-in-out infinite 2s;
+
+    @media (max-width: 480px) {
+      right: 0;
+    }
   }
 `;
 
-export const ImageRing = styled.div`
+export const ImageGlowRing = styled.div`
   position: absolute;
-  inset: -10px;
-  border-radius: 50%;
-  background: conic-gradient(from 0deg, #ff5733, #ff8e53, transparent, #ff5733);
-  
-  /* Dual Animation: Rotation + 3D Pulsing */
-  animation: 
-    ${rotateRing} 8s linear infinite, 
-    ${ringPulse} 4s ease-in-out infinite;
-    
-  transform: translateZ(-40px);
-  opacity: 0.6;
-  filter: blur(2px);
-  pointer-events: none;
-  transition: filter 0.5s ease, opacity 0.5s ease;
+  inset: -6px;
+  border-radius: 36px;
+  background: conic-gradient(from 0deg, #ff5733, #ff8e53, #6366f1, #a855f7, #ff5733);
+  opacity: 0.45;
+  filter: blur(12px);
+  animation: ${spinGlow} 12s linear infinite;
+  z-index: 0;
 `;
 
-export const HeroImage = styled.img.withConfig({
-  shouldForwardProp: (prop) => prop !== "variant",
-})`
+export const FloatingBadge = styled.div`
   position: absolute;
-  object-fit: cover;
-  border-radius: 50%;
-  border: 4px solid rgba(255, 255, 255, 0.16);
-  box-shadow: 0 20px 42px rgba(0, 0, 0, 0.3);
-  cursor: pointer;
-  transition: transform 0.6s ease, box-shadow 0.6s ease, filter 0.6s ease,
-    border-color 0.6s ease, opacity 0.6s ease;
-  ${(props) => heroImageVariantStyles[props.variant || "center"]}
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  background: ${({ theme }) => theme.surface};
+  border: 1px solid ${({ theme }) => theme.border};
+  border-radius: 16px;
+  backdrop-filter: blur(16px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
 
-  &:hover {
-    border-color: rgba(255, 255, 255, 0.36);
-    filter: saturate(1.1) brightness(1.06);
+  .badge-icon {
+    font-size: 1.4rem;
+    color: ${({ theme }) => theme.accent};
+
+    &.success {
+      color: #22c55e;
+    }
   }
 
-  ${ImageBox}:hover & {
-    box-shadow: 0 30px 60px rgba(255, 87, 51, 0.22);
-    filter: saturate(1.08) brightness(1.05);
-    ${(props) => heroImageHoverStyles[props.variant || "center"]}
+  h4 {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: ${({ theme }) => theme.text};
+    margin: 0;
   }
 
-  @media (max-width: 768px) {
-    width: 84%;
-    height: 84%;
+  p {
+    font-size: 0.72rem;
+    color: ${({ theme }) => theme.textMuted};
+    margin: 0;
   }
 `;
-
-export const HeroStats = styled.div` display:flex; gap:2rem; `;
-export const StatItem = styled.div` text-align:center; `;
-export const StatNumber = styled.span` display:block; font-size:2rem; font-weight:800; background:linear-gradient(135deg,#ff5733,#ff8e53); -webkit-background-clip:text; -webkit-text-fill-color:transparent; `;
-export const StatLabel = styled.span` font-size:0.9rem; color:rgba(255,255,255,0.7); `;
